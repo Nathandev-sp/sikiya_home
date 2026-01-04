@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 
@@ -10,7 +10,7 @@ import { SlimLayout } from '@/components/SlimLayout';
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000';
 
-export default function ResetPassword() {
+function ResetPasswordForm() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const token = searchParams.get('token');
@@ -271,6 +271,26 @@ export default function ResetPassword() {
         </Link>
       </div>
     </SlimLayout>
+  );
+}
+
+export default function ResetPassword() {
+  return (
+    <Suspense fallback={
+      <SlimLayout>
+        <div className="flex">
+          <Link href="/" aria-label="Home">
+            <Logo className="h-24 w-auto" />
+          </Link>
+        </div>
+        <div className="mt-20">
+          <h2 className="text-lg font-semibold text-gray-900">Loading...</h2>
+          <p className="mt-2 text-sm text-gray-700">Please wait while we load the reset password page.</p>
+        </div>
+      </SlimLayout>
+    }>
+      <ResetPasswordForm />
+    </Suspense>
   );
 }
 

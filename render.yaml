@@ -1,0 +1,16 @@
+services:
+  - type: web
+    name: sikiya-home
+    runtime: node
+    buildCommand: npm ci && npm run build
+    startCommand: npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      # Update this with your backend API URL
+      - key: NEXT_PUBLIC_API_URL
+        sync: false  # Set this manually in Render dashboard
+      # Update this if your CloudFront URL is different
+      - key: NEXT_PUBLIC_CLOUDFRONT_URL
+        sync: false  # Optional: Set this manually in Render dashboard
+

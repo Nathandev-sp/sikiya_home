@@ -6,6 +6,9 @@ import { SafeImage } from '@/components/SafeImage';
 import Link from 'next/link';
 import { getImageUrl } from '@/utils/imageUtils';
 
+// Force dynamic rendering to prevent build-time prerendering errors
+export const dynamic = 'force-dynamic';
+
 const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000';
 
 export default function ApprovedVideosPage() {
