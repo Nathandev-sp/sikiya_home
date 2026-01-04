@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 
@@ -11,7 +11,7 @@ import { SlimLayout } from '@/components/SlimLayout';
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000';
 
-export default function Login() {
+function LoginForm() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const redirect = searchParams.get('redirect') || '/';
@@ -162,5 +162,25 @@ export default function Login() {
         </div>
       </form>
     </SlimLayout>
+  );
+}
+
+export default function Login() {
+  return (
+    <Suspense fallback={
+      <SlimLayout>
+        <div className="flex">
+          <Link href="/" aria-label="Home">
+            <Logo className="h-24 w-auto" />
+          </Link>
+        </div>
+        <div className="mt-20">
+          <h2 className="text-lg font-semibold text-gray-900">Loading...</h2>
+          <p className="mt-2 text-sm text-gray-700">Please wait while we load the login page.</p>
+        </div>
+      </SlimLayout>
+    }>
+      <LoginForm />
+    </Suspense>
   );
 }
