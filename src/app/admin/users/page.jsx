@@ -1,14 +1,11 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
-
-// Force dynamic rendering to prevent build-time prerendering errors
-export const dynamic = 'force-dynamic';
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000';
 
-export default function AdminUsersPage() {
+function AdminUsersPageContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const page = parseInt(searchParams.get('page') || '1', 10);
@@ -245,4 +242,15 @@ export default function AdminUsersPage() {
   );
 }
 
+export default function AdminUsersPage() {
+  return (
+    <Suspense fallback={
+      <div className="flex items-center justify-center h-64">
+        <div className="text-gray-500">Loading...</div>
+      </div>
+    }>
+      <AdminUsersPageContent />
+    </Suspense>
+  );
+}
 
