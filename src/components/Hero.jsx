@@ -128,7 +128,7 @@ export function Hero() {
 
         {/* Hero Content */}
         <div className="relative z-10">
-          <h1 className="mx-auto max-w-4xl font-display text-5xl font-medium tracking-tight text-slate-900 sm:text-7xl">
+          <h1 className="mx-auto max-w-4xl font-display text-3xl font-medium tracking-tight text-slate-900 sm:text-5xl md:text-6xl lg:text-7xl">
             {t.hero.title}{' '}
             <span className="relative whitespace-nowrap text-[#66462C]">
               <svg

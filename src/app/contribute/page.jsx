@@ -30,11 +30,11 @@ export default function ContributePage() {
               href="https://apps.apple.com/app/sikiya"
               target="_blank"
               rel="noopener noreferrer"
-              className="group inline-flex items-center justify-center transition-transform hover:scale-105 w-full sm:w-auto"
+              className="group inline-flex items-center justify-center transition-transform hover:scale-105 w-auto"
             >
-              <div className="flex flex-col items-center gap-3 rounded-2xl bg-slate-900 p-6 shadow-xl ring-1 ring-slate-900/5 hover:bg-slate-800 w-full sm:w-48">
+              <div className="flex flex-col items-center gap-3 rounded-2xl bg-slate-900 p-4 sm:p-6 shadow-xl ring-1 ring-slate-900/5 hover:bg-slate-800 w-40 sm:w-48">
                 <svg
-                  className="h-12 w-12 text-white"
+                  className="h-10 w-10 sm:h-12 sm:w-12 text-white"
                   fill="currentColor"
                   viewBox="0 0 24 24"
                   aria-hidden="true"
@@ -43,7 +43,7 @@ export default function ContributePage() {
                 </svg>
                 <div className="text-center">
                   <div className="text-xs text-slate-400">{t.contribute.appStore.downloadOn}</div>
-                  <div className="text-xl font-semibold text-white">{t.contribute.appStore.name}</div>
+                  <div className="text-lg sm:text-xl font-semibold text-white">{t.contribute.appStore.name}</div>
                 </div>
               </div>
             </a>
@@ -53,11 +53,11 @@ export default function ContributePage() {
               href="https://play.google.com/store/apps/details?id=com.sikiya"
               target="_blank"
               rel="noopener noreferrer"
-              className="group inline-flex items-center justify-center transition-transform hover:scale-105 w-full sm:w-auto"
+              className="group inline-flex items-center justify-center transition-transform hover:scale-105 w-auto"
             >
-              <div className="flex flex-col items-center gap-3 rounded-2xl bg-slate-900 p-6 shadow-xl ring-1 ring-slate-900/5 hover:bg-slate-800 w-full sm:w-48">
+              <div className="flex flex-col items-center gap-3 rounded-2xl bg-slate-900 p-4 sm:p-6 shadow-xl ring-1 ring-slate-900/5 hover:bg-slate-800 w-40 sm:w-48">
                 <svg
-                  className="h-12 w-12 text-white"
+                  className="h-10 w-10 sm:h-12 sm:w-12 text-white"
                   fill="currentColor"
                   viewBox="0 0 24 24"
                   aria-hidden="true"
@@ -66,7 +66,7 @@ export default function ContributePage() {
                 </svg>
                 <div className="text-center">
                   <div className="text-xs text-slate-400">{t.contribute.googlePlay.getItOn}</div>
-                  <div className="text-xl font-semibold text-white">{t.contribute.googlePlay.name}</div>
+                  <div className="text-lg sm:text-xl font-semibold text-white">{t.contribute.googlePlay.name}</div>
                 </div>
               </div>
             </a>

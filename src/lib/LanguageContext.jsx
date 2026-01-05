@@ -5,7 +5,7 @@ import { createContext, useContext, useState, useEffect } from 'react'
 const LanguageContext = createContext(undefined)
 
 export function LanguageProvider({ children }) {
-  const [language, setLanguage] = useState('en')
+  const [language, setLanguage] = useState('fr')
 
   useEffect(() => {
     // Load language from localStorage on mount
