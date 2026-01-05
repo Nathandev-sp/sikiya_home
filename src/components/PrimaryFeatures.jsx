@@ -6,42 +6,42 @@ import { Tab, TabGroup, TabList, TabPanel, TabPanels } from '@headlessui/react'
 import clsx from 'clsx'
 
 import { Container } from '@/components/Container'
+import { useLanguage } from '@/lib/LanguageContext'
+import { getTranslation } from '@/lib/translations'
 import screenshotExpenses from '@/images/screenshots/expenses.png'
 import screenshotPayroll from '@/images/screenshots/payroll.png'
 import screenshotReporting from '@/images/screenshots/reporting.png'
 import screenshotVatReturns from '@/images/screenshots/vat-returns.png'
 
-const journalistFeatures = [
-  {
-    title: 'Publish your knowledge through articles',
-    description:
-      'Become a Sikiya certified journalist to start publishing your insights.',
-    image: screenshotPayroll,
-  },
-  {
-    title: 'Create a short video to encourage bring your insights to the public',
-    description:
-      'Become a Sikiya certified journalist to start publishing your insights.',
-    image: screenshotExpenses,
-  },
-]
-
-const userFeatures = [
-  {
-    title: 'Enjoy relevant content for your african country of interest',
-    description:
-      'Discover and engage with stories, articles, and videos tailored to your country and interests across Africa.',
-    image: screenshotVatReturns,
-  },
-  {
-    title: 'Join other driven african into meaningful constructive conversations',
-    description:
-      'Connect with a community of engaged Africans discussing political, economic, social, and cultural topics that matter.',
-    image: screenshotReporting,
-  },
-]
-
 export function PrimaryFeatures() {
+  const { language } = useLanguage()
+  const t = getTranslation(language)
+
+  const journalistFeatures = [
+    {
+      title: t.primaryFeatures.journalistFeatures.publish.title,
+      description: t.primaryFeatures.journalistFeatures.publish.description,
+      image: screenshotPayroll,
+    },
+    {
+      title: t.primaryFeatures.journalistFeatures.video.title,
+      description: t.primaryFeatures.journalistFeatures.video.description,
+      image: screenshotExpenses,
+    },
+  ]
+
+  const userFeatures = [
+    {
+      title: t.primaryFeatures.userFeatures.content.title,
+      description: t.primaryFeatures.userFeatures.content.description,
+      image: screenshotVatReturns,
+    },
+    {
+      title: t.primaryFeatures.userFeatures.conversations.title,
+      description: t.primaryFeatures.userFeatures.conversations.description,
+      image: screenshotReporting,
+    },
+  ]
   const [isJournalist, setIsJournalist] = useState(true)
   const [tabOrientation, setTabOrientation] = useState('horizontal')
   
@@ -71,10 +71,10 @@ export function PrimaryFeatures() {
       <Container className="relative">
         <div className="max-w-2xl md:mx-auto md:text-center xl:max-w-none">
           <h2 className="font-display text-3xl font-semibold tracking-tight text-slate-900 sm:text-4xl md:text-5xl">
-            Everything you need to share your story.
+            {t.primaryFeatures.title}
           </h2>
           <p className="mt-6 text-lg tracking-tight text-slate-600">
-            A comprehensive platform for journalists, writers, and content creators to share their insights about Africa.
+            {t.primaryFeatures.subtitle}
           </p>
           
           {/* Modern Toggle Switch */}
@@ -90,7 +90,7 @@ export function PrimaryFeatures() {
                     : 'text-slate-600 hover:text-slate-900'
                 )}
               >
-                <span className="relative z-10">Users</span>
+                <span className="relative z-10">{t.primaryFeatures.users}</span>
               </button>
               <button
                 type="button"
@@ -102,7 +102,7 @@ export function PrimaryFeatures() {
                     : 'text-slate-600 hover:text-slate-900'
                 )}
               >
-                <span className="relative z-10">Journalists</span>
+                <span className="relative z-10">{t.primaryFeatures.journalists}</span>
               </button>
             </div>
           </div>

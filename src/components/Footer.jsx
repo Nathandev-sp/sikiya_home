@@ -1,10 +1,17 @@
+'use client'
+
 import Link from 'next/link'
 
 import { Container } from '@/components/Container'
 import { Logo } from '@/components/Logo'
 import { NavLink } from '@/components/NavLink'
+import { useLanguage } from '@/lib/LanguageContext'
+import { getTranslation } from '@/lib/translations'
 
 export function Footer() {
+  const { language } = useLanguage()
+  const t = getTranslation(language)
+
   return (
     <footer className="bg-[#F6F3EF]">
       <Container>
@@ -38,8 +45,7 @@ export function Footer() {
             </Link>
           </div>
           <p className="mt-6 text-sm text-slate-600 sm:mt-0">
-            Copyright &copy; {new Date().getFullYear()} Sikiya. All rights
-            reserved.
+            {t.footer.copyright.replace('{year}', new Date().getFullYear().toString())}
           </p>
         </div>
       </Container>

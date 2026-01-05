@@ -2,6 +2,7 @@ import { Inter, Lexend } from 'next/font/google'
 import clsx from 'clsx'
 
 import '@/styles/tailwind.css'
+import { LanguageProvider } from '@/lib/LanguageContext'
 
 export const metadata = {
   title: {
@@ -10,9 +11,6 @@ export const metadata = {
   },
   description:
     'A platform dedicated to dialogues on the political, economic, social, and cultural dimensions shaping the continent.',
-  icons: {
-    icon: '/favicon.png',
-  },
 }
 
 const inter = Inter({
@@ -37,7 +35,9 @@ export default function RootLayout({ children }) {
         lexend.variable,
       )}
     >
-      <body className="flex h-full flex-col">{children}</body>
+      <body className="flex h-full flex-col">
+        <LanguageProvider>{children}</LanguageProvider>
+      </body>
     </html>
   )
 }

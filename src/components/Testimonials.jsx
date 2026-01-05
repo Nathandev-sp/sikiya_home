@@ -1,74 +1,15 @@
+'use client'
+
 import Image from 'next/image'
 
 import { Container } from '@/components/Container'
+import { useLanguage } from '@/lib/LanguageContext'
+import { getTranslation } from '@/lib/translations'
 import avatarImage1 from '@/images/avatars/avatar-1.png'
 import avatarImage2 from '@/images/avatars/avatar-2.png'
 import avatarImage3 from '@/images/avatars/avatar-3.png'
 import avatarImage4 from '@/images/avatars/avatar-4.png'
 import avatarImage5 from '@/images/avatars/avatar-5.png'
-
-const testimonials = [
-  [
-    {
-      content:
-        'Sikiya has given me a platform to share stories that matter to my community. The engagement and dialogue it fosters is exactly what African journalism needs.',
-      author: {
-        name: 'Amina Okafor',
-        role: 'Independent Journalist',
-        image: avatarImage1,
-      },
-    },
-    {
-      content:
-        'As a reader, I love how Sikiya brings diverse perspectives together. It\'s refreshing to see African stories told by African voices.',
-      author: {
-        name: 'Kwame Mensah',
-        role: 'Community Advocate',
-        image: avatarImage4,
-      },
-    },
-  ],
-  [
-    {
-      content:
-        'The platform\'s commitment to truth and accuracy is evident in every article. I trust Sikiya to deliver verified, meaningful content about our continent.',
-      author: {
-        name: 'Fatima Hassan',
-        role: 'Media Professional',
-        image: avatarImage5,
-      },
-    },
-    {
-      content:
-        'Sikiya has created a space where open dialogue is not just encouraged, but celebrated. It\'s empowering to be part of this community.',
-      author: {
-        name: 'David Okonkwo',
-        role: 'Content Creator',
-        image: avatarImage2,
-      },
-    },
-  ],
-  [
-    {
-      content:
-        'I appreciate how Sikiya covers stories that shape our communities. Every article, every video, every discussion contributes to a better understanding of Africa.',
-      author: {
-        name: 'Sarah Mwangi',
-        role: 'Educator & Writer',
-        image: avatarImage3,
-      },
-    },
-    {
-      content:
-        'The respect and integrity shown on this platform make it a safe space for meaningful conversations. Sikiya is building something special.',
-      author: {
-        name: 'Tunde Adebayo',
-        role: 'Political Analyst',
-        image: avatarImage4,
-      },
-    },
-  ],
-]
 
 function QuoteIcon(props) {
   return (
@@ -79,6 +20,24 @@ function QuoteIcon(props) {
 }
 
 export function Testimonials() {
+  const { language } = useLanguage()
+  const t = getTranslation(language)
+
+  // Split testimonials into 3 columns
+  const testimonials = t.testimonials.testimonials.map((testimonial) => ({
+    content: testimonial.content,
+    author: {
+      name: testimonial.author,
+      role: testimonial.role,
+      image: [avatarImage1, avatarImage2, avatarImage3, avatarImage4, avatarImage5][t.testimonials.testimonials.indexOf(testimonial) % 5],
+    },
+  }))
+
+  const testimonialsColumns = []
+  for (let i = 0; i < testimonials.length; i += 3) {
+    testimonialsColumns.push(testimonials.slice(i, i + 3))
+  }
+
   return (
     <section
       id="testimonials"
@@ -88,17 +47,17 @@ export function Testimonials() {
       <Container>
         <div className="mx-auto max-w-2xl md:text-center">
           <h2 className="font-display text-3xl tracking-tight text-slate-900 sm:text-4xl">
-            Trusted by journalists and readers across Africa.
+            {t.testimonials.title}
           </h2>
           <p className="mt-4 text-lg tracking-tight text-slate-700">
-            Join a growing community of journalists, writers, and readers who are shaping the narrative about Africa\'s future.
+            {t.testimonials.subtitle}
           </p>
         </div>
         <ul
           role="list"
           className="mx-auto mt-16 grid max-w-2xl grid-cols-1 gap-6 sm:gap-8 lg:mt-20 lg:max-w-none lg:grid-cols-3"
         >
-          {testimonials.map((column, columnIndex) => (
+          {testimonialsColumns.map((column, columnIndex) => (
             <li key={columnIndex}>
               <ul role="list" className="flex flex-col gap-y-6 sm:gap-y-8">
                 {column.map((testimonial, testimonialIndex) => (

@@ -1,0 +1,6 @@
+{
+  "/contribute/page": "app/contribute/page.js",
+  "/page": "app/page.js",
+  "/top_contributors/page": "app/top_contributors/page.js",
+  "/learn_more/page": "app/learn_more/page.js"
+}

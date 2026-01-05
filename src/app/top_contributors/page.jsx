@@ -1,54 +1,43 @@
+'use client'
+
 import Image from 'next/image'
 import { Container } from '@/components/Container'
 import { Header } from '@/components/Header'
 import { Footer } from '@/components/Footer'
+import { useLanguage } from '@/lib/LanguageContext'
+import { getTranslation } from '@/lib/translations'
+import { getImageUrl } from '@/utils/imageUtils'
 
 const people = [
   {
-    name: 'Leonard Krasner',
-    role: 'Senior Designer',
-    imageUrl:
-      'https://images.unsplash.com/photo-1519345182560-3f2917c472ef?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=8&w=1024&h=1024&q=80',
-    groups: ['Sport', 'Politics'],
+    name: 'Arcade Cibonga',
+    logoUrl: getImageUrl('web/top_journalists/1/logo.jpeg'),
+    imageUrl:getImageUrl('web/top_journalists/1/profile.jpeg'),
+    groups: ['Sport'],
   },
   {
     name: 'Floyd Miles',
-    role: 'Principal Designer',
+    logoUrl: null,
     imageUrl:
       'https://images.unsplash.com/photo-1463453091185-61582044d556?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=8&w=1024&h=1024&q=80',
     groups: ['Culture', 'Economy'],
   },
   {
     name: 'Emily Selman',
-    role: 'VP, User Experience',
+    logoUrl: 'https://images.unsplash.com/photo-1502685104226-ee32379fefbe?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=8&w=1024&h=1024&q=80',
     imageUrl:
       'https://images.unsplash.com/photo-1502685104226-ee32379fefbe?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=8&w=1024&h=1024&q=80',
     groups: ['Politics', 'Sport', 'Culture'],
   },
-  {
-    name: 'Kristin Watson',
-    role: 'VP, Human Resources',
-    imageUrl:
-      'https://images.unsplash.com/photo-1500917293891-ef795e70e1f6?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=8&w=1024&h=1024&q=80',
-    groups: ['Economy', 'Politics'],
-  },
-  {
-    name: 'Emma Dorsey',
-    role: 'Senior Developer',
-    imageUrl:
-      'https://images.unsplash.com/photo-1505840717430-882ce147ef2d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=8&w=1024&h=1024&q=80',
-    groups: ['Sport', 'Culture'],
-  },
-  {
-    name: 'Alicia Bell',
-    role: 'Junior Copywriter',
-    imageUrl:
-      'https://images.unsplash.com/photo-1509783236416-c9ad59bae472?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=8&w=1024&h=1024&q=80',
-    groups: ['Economy', 'Sport', 'Politics'],
-  },
+  
+  
+  
 ]
 
 export default function TopContributorsPage() {
+  const { language } = useLanguage()
+  const t = getTranslation(language)
+
   return (
     <>
       <Header />
@@ -56,10 +45,10 @@ export default function TopContributorsPage() {
         <Container className="mt-16 pb-32">
           <div className="mx-auto max-w-3xl text-center">
             <h1 className="font-display text-5xl font-medium tracking-tight text-slate-900 sm:text-6xl">
-              Top Journalists
+              {t.topContributors.title}
             </h1>
             <p className="mt-6 text-lg tracking-tight text-slate-700">
-              Meet the passionate journalists, writers, and content creators who are shaping the dialogue on Africa's future through their insightful articles and stories.
+              {t.topContributors.subtitle}
             </p>
           </div>
 
@@ -78,8 +67,22 @@ export default function TopContributorsPage() {
                     sizes="(max-width: 768px) 192px, 224px"
                   />
                 </div>
-                <h3 className="mt-6 text-base/7 font-semibold tracking-tight text-gray-900">{person.name}</h3>
-                <p className="text-sm/6 text-gray-600">{person.role}</p>
+                <h3 className="mt-6 text-center text-base/7 font-semibold tracking-tight text-gray-900">{person.name}</h3>
+                {person.logoUrl ? (
+                  <div className="mt-3 flex justify-center">
+                    <div className="relative h-14 w-44 rounded-xl overflow-hidden">
+                      <Image
+                        src={person.logoUrl}
+                        alt={`${person.name} logo`}
+                        fill
+                        className="object-cover"
+                        sizes="176px"
+                      />
+                    </div>
+                  </div>
+                ) : (
+                  <p className="mt-3 text-center text-sm/6 text-gray-600">{t.topContributors.independentJournalist}</p>
+                )}
                 <div className="mt-6 flex flex-wrap justify-center gap-2">
                   {person.groups.map((group) => (
                     <span

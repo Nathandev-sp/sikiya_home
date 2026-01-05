@@ -12,6 +12,9 @@ import clsx from 'clsx'
 import { Container } from '@/components/Container'
 import { Logo } from '@/components/Logo'
 import { NavLink } from '@/components/NavLink'
+import { LanguageSwitcher } from '@/components/LanguageSwitcher'
+import { useLanguage } from '@/lib/LanguageContext'
+import { getTranslation } from '@/lib/translations'
 
 function MobileNavLink({ href, children }) {
   return (
@@ -49,6 +52,9 @@ function MobileNavIcon({ open }) {
 }
 
 function MobileNavigation() {
+  const { language } = useLanguage()
+  const t = getTranslation(language)
+
   return (
     <Popover>
       <PopoverButton
@@ -65,16 +71,19 @@ function MobileNavigation() {
         transition
         className="absolute inset-x-0 top-full mt-4 flex origin-top flex-col rounded-2xl bg-white p-4 text-lg tracking-tight text-slate-900 shadow-xl ring-1 ring-slate-900/5 data-closed:scale-95 data-closed:opacity-0 data-enter:duration-150 data-enter:ease-out data-leave:duration-100 data-leave:ease-in"
       >
-        <MobileNavLink href="/">Home</MobileNavLink>
-        <MobileNavLink href="/top_contributors">Top journalists</MobileNavLink>
-        <MobileNavLink href="/contribute">Join sikiya</MobileNavLink>
-        <MobileNavLink href="/learn_more">Learn more</MobileNavLink>
+        <MobileNavLink href="/">{t.header.home}</MobileNavLink>
+        <MobileNavLink href="/top_contributors">{t.header.topJournalists}</MobileNavLink>
+        <MobileNavLink href="/contribute">{t.header.joinSikiya}</MobileNavLink>
+        <MobileNavLink href="/learn_more">{t.header.learnMore}</MobileNavLink>
       </PopoverPanel>
     </Popover>
   )
 }
 
 export function Header() {
+  const { language } = useLanguage()
+  const t = getTranslation(language)
+
   return (
     <header className="py-8">
       <Container>
@@ -84,13 +93,14 @@ export function Header() {
               <Logo className="h-20 w-auto" />
             </Link>
             <div className="hidden md:flex md:gap-x-6">
-              <NavLink href="/">Home</NavLink>
-              <NavLink href="/top_contributors">Top journalists</NavLink>
-              <NavLink href="/contribute">Join sikiya</NavLink>
-              <NavLink href="/learn_more">Learn more</NavLink>
+              <NavLink href="/">{t.header.home}</NavLink>
+              <NavLink href="/top_contributors">{t.header.topJournalists}</NavLink>
+              <NavLink href="/contribute">{t.header.joinSikiya}</NavLink>
+              <NavLink href="/learn_more">{t.header.learnMore}</NavLink>
             </div>
           </div>
           <div className="flex items-center gap-x-5 md:gap-x-8">
+            <LanguageSwitcher />
             <div className="-mr-1 md:hidden">
               <MobileNavigation />
             </div>
