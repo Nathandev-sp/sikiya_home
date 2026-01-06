@@ -16,3 +16,4 @@ export function getNestedTranslation(keys, language = 'en') {
   return keys.reduce((obj, key) => obj?.[key], translation) || ''
 }
 
+

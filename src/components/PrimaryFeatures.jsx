@@ -8,10 +8,7 @@ import clsx from 'clsx'
 import { Container } from '@/components/Container'
 import { useLanguage } from '@/lib/LanguageContext'
 import { getTranslation } from '@/lib/translations'
-import screenshotExpenses from '@/images/screenshots/expenses.png'
-import screenshotPayroll from '@/images/screenshots/payroll.png'
-import screenshotReporting from '@/images/screenshots/reporting.png'
-import screenshotVatReturns from '@/images/screenshots/vat-returns.png'
+import { getImageUrl } from '@/utils/imageUtils'
 
 export function PrimaryFeatures() {
   const { language } = useLanguage()
@@ -21,12 +18,12 @@ export function PrimaryFeatures() {
     {
       title: t.primaryFeatures.journalistFeatures.publish.title,
       description: t.primaryFeatures.journalistFeatures.publish.description,
-      image: screenshotPayroll,
+      image: getImageUrl('web/features/feature3.png'),
     },
     {
       title: t.primaryFeatures.journalistFeatures.video.title,
       description: t.primaryFeatures.journalistFeatures.video.description,
-      image: screenshotExpenses,
+      image: getImageUrl('web/features/feature3.png'),
     },
   ]
 
@@ -34,15 +31,15 @@ export function PrimaryFeatures() {
     {
       title: t.primaryFeatures.userFeatures.content.title,
       description: t.primaryFeatures.userFeatures.content.description,
-      image: screenshotVatReturns,
+      image: getImageUrl('web/features/feature1.png'),
     },
     {
       title: t.primaryFeatures.userFeatures.conversations.title,
       description: t.primaryFeatures.userFeatures.conversations.description,
-      image: screenshotReporting,
+      image: getImageUrl('web/features/feature2.png'),
     },
   ]
-  const [isJournalist, setIsJournalist] = useState(true)
+  const [isJournalist, setIsJournalist] = useState(false)
   const [tabOrientation, setTabOrientation] = useState('horizontal')
   
   const features = isJournalist ? journalistFeatures : userFeatures
@@ -115,36 +112,36 @@ export function PrimaryFeatures() {
           {({ selectedIndex }) => (
             <>
               <div className="-mx-4 flex overflow-x-auto pb-4 sm:mx-0 sm:overflow-visible sm:pb-0 lg:col-span-5">
-                <TabList className="relative z-10 flex gap-3 px-4 whitespace-nowrap sm:mx-auto sm:px-0 lg:mx-0 lg:block lg:gap-y-3 lg:whitespace-normal">
+                <TabList className="relative z-10 flex gap-4 px-4 whitespace-nowrap sm:mx-auto sm:px-0 lg:mx-0 lg:block lg:gap-4 lg:whitespace-normal">
                   {features.map((feature, featureIndex) => (
                     <div
                       key={feature.title}
                       className={clsx(
-                        'group relative rounded-xl px-5 py-4 transition-all duration-200',
+                        'group relative rounded-2xl px-6 py-5 transition-all duration-200 border-2',
                         selectedIndex === featureIndex
-                          ? 'bg-gray-100 shadow-sm'
-                          : 'hover:bg-gray-50'
+                          ? 'bg-white border-[#66462C] shadow-lg shadow-[#66462C]/10'
+                          : 'bg-gray-50 border-transparent hover:bg-white hover:border-gray-200 hover:shadow-md'
                       )}
                     >
                       <h3>
                         <Tab
                           className={clsx(
-                            'font-display text-lg font-semibold data-selected:not-data-focus:outline-hidden',
+                            'font-display text-xl font-semibold data-selected:not-data-focus:outline-hidden',
                             selectedIndex === featureIndex
                               ? 'text-[#66462C]'
-                              : 'text-slate-700 hover:text-slate-900'
+                              : 'text-slate-800 hover:text-slate-900'
                           )}
                         >
-                          <span className="absolute inset-0 rounded-xl" />
+                          <span className="absolute inset-0 rounded-2xl" />
                           {feature.title}
                         </Tab>
                       </h3>
                       <p
                         className={clsx(
-                          'mt-3 text-sm leading-relaxed',
+                          'mt-3 text-base leading-relaxed',
                           selectedIndex === featureIndex
-                            ? 'text-slate-600'
-                            : 'text-slate-500 group-hover:text-slate-600'
+                            ? 'text-slate-700'
+                            : 'text-slate-600 group-hover:text-slate-700'
                         )}
                       >
                         {feature.description}
@@ -162,14 +159,17 @@ export function PrimaryFeatures() {
                         {feature.description}
                       </p>
                     </div>
-                    <div className="mt-10 w-180 overflow-hidden rounded-xl bg-gray-50 shadow-xl shadow-slate-900/10 ring-1 ring-gray-200 sm:w-auto lg:mt-0 lg:w-271.25">
-                      <Image
-                        className="w-full"
-                        src={feature.image}
-                        alt=""
-                        priority
-                        sizes="(min-width: 1024px) 67.8125rem, (min-width: 640px) 100vw, 45rem"
-                      />
+                    <div className="relative mt-10 w-full mx-auto overflow-hidden rounded-xl bg-gray-50 shadow-xl shadow-slate-900/10 ring-1 ring-gray-200 max-w-lg sm:max-w-xl md:max-w-2xl lg:mt-0 lg:max-w-3xl xl:max-w-4xl">
+                      <div className="relative aspect-[3/4] w-full max-w-md mx-auto sm:max-w-lg md:max-w-xl lg:max-w-2xl xl:max-w-3xl">
+                        <Image
+                          className="object-contain"
+                          src={feature.image}
+                          alt=""
+                          fill
+                          priority
+                          sizes="(min-width: 1280px) 48rem, (min-width: 1024px) 42rem, (min-width: 640px) 32rem, 28rem"
+                        />
+                      </div>
                     </div>
                   </TabPanel>
                 ))}
