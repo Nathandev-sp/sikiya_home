@@ -19,35 +19,59 @@ export default function VideoDetailPage() {
   const [approvalStatus, setApprovalStatus] = useState('');
   const [approvalReason, setApprovalReason] = useState('');
   const [submitting, setSubmitting] = useState(false);
+  const [userRole, setUserRole] = useState(null);
 
   useEffect(() => {
-    checkAdminAccess();
+    checkAccess();
     fetchVideo();
   }, [videoId]);
 
-  const checkAdminAccess = async () => {
+  const checkAccess = async () => {
     try {
       const token = localStorage.getItem('token') || sessionStorage.getItem('token');
       
       if (!token) {
-        router.push('/login?redirect=/admin/videos/pending');
+        router.push('/login');
         return;
       }
 
-      const response = await fetch(`${API_URL}/verify-admin`, {
+      // First try to verify as admin
+      const adminResponse = await fetch(`${API_URL}/verify-admin`, {
         headers: {
           'Authorization': `Bearer ${token}`,
           'Content-Type': 'application/json',
         },
       });
 
-      if (!response.ok || !(await response.json()).isAdmin) {
-        router.push('/login?redirect=/admin/videos/pending');
-        return;
+      if (adminResponse.ok) {
+        const adminData = await adminResponse.json();
+        if (adminData.isAdmin) {
+          setUserRole('admin');
+          return;
+        }
       }
+
+      // If not admin, try to verify as publisher
+      const publisherResponse = await fetch(`${API_URL}/verify-publisher`, {
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+      });
+
+      if (publisherResponse.ok) {
+        const publisherData = await publisherResponse.json();
+        if (publisherData.isPublisher) {
+          setUserRole('publisher');
+          return;
+        }
+      }
+
+      // If neither admin nor publisher, redirect to login
+      router.push('/login');
     } catch (error) {
-      console.error('Error checking admin access:', error);
-      router.push('/login?redirect=/admin/videos/pending');
+      console.error('Error checking access:', error);
+      router.push('/login');
     }
   };
 
@@ -151,7 +175,13 @@ export default function VideoDetailPage() {
       }
 
       alert(`Video ${approvalStatus} successfully!`);
-      router.push('/admin/videos/pending');
+      
+      // Redirect based on user role
+      if (userRole === 'publisher') {
+        router.push('/publisher/videos/pending');
+      } else {
+        router.push('/admin/videos/pending');
+      }
     } catch (err) {
       console.error('Error updating approval:', err);
       alert(`Error: ${err.message}`);
@@ -180,7 +210,7 @@ export default function VideoDetailPage() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <button
-          onClick={() => router.push('/admin/videos/pending')}
+          onClick={() => router.push(userRole === 'publisher' ? '/publisher/videos/pending' : '/admin/videos/pending')}
           className="text-gray-600 hover:text-gray-900 flex items-center gap-2"
         >
           <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">

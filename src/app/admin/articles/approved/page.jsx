@@ -15,6 +15,7 @@ function ApprovedArticlesPageContent() {
   const [articles, setArticles] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [expandedId, setExpandedId] = useState(null);
   const [pagination, setPagination] = useState({
     total: 0,
     pages: 0,
@@ -106,7 +107,9 @@ function ApprovedArticlesPageContent() {
   return (
     <div className="space-y-8">
       <div className="flex justify-between items-center">
-        <h2 className="text-2xl font-bold text-gray-900">Approved Articles</h2>
+        <h1 className="font-display text-3xl font-semibold tracking-tight text-slate-900">
+          Approved Articles
+        </h1>
       </div>
 
       {error && (
@@ -127,66 +130,338 @@ function ApprovedArticlesPageContent() {
 
       {!loading && !error && Array.isArray(articles) && articles.length > 0 && (
         <>
-          <div className="grid grid-cols-1 gap-6">
-            {articles.map((pubArticle) => {
-              const article = pubArticle?.article_id;
-              const publisher = pubArticle?.publisher_id;
-              const journalist = article?.journalist_id;
-              
-              if (!article) return null;
+          <div className="bg-white shadow-sm overflow-hidden rounded-lg border border-gray-100">
+            <ul className="divide-y divide-gray-200">
+              {articles.map((pubArticle) => {
+                const article = pubArticle?.article_id;
+                const publisher = pubArticle?.publisher_id;
+                const journalist = article?.journalist_id;
+                
+                if (!article) return null;
 
-              return (
-                <div key={pubArticle._id} className="bg-white shadow rounded-lg overflow-hidden">
-                  <div className="p-6">
-                    <div className="flex items-start gap-6">
-                      {/* Article Image */}
-                      {article.article_front_image && (
-                        <div className="relative w-32 h-24 flex-shrink-0 bg-gray-200 rounded-lg overflow-hidden" style={{ aspectRatio: '1.25/0.85' }}>
-                          <SafeImage
-                            src={article.article_front_image}
-                            alt={article.article_title}
-                            fill
-                            className="object-cover"
-                          />
-                        </div>
-                      )}
-                      
-                      {/* Article Info */}
-                      <div className="flex-1 min-w-0">
-                        <h3 className="text-lg font-semibold text-gray-900 mb-2 line-clamp-2">
-                          {article.article_title}
-                        </h3>
-                        <p className="text-sm text-gray-600 line-clamp-2 mb-4">
-                          {article.article_highlight}
-                        </p>
+                return (
+                  <li key={pubArticle._id} className="p-6">
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center space-x-4 flex-1">
+                        {/* Article Image */}
+                        {article.article_front_image && (
+                          <div className="relative w-20 h-16 flex-shrink-0 bg-gray-200 rounded-lg overflow-hidden" style={{ aspectRatio: '1.25/0.85' }}>
+                            <SafeImage
+                              src={article.article_front_image}
+                              alt={article.article_title}
+                              fill
+                              className="object-cover"
+                            />
+                          </div>
+                        )}
                         
-                        {/* Publisher, Journalist, and Date */}
-                        <div className="flex flex-wrap items-center gap-4 text-sm text-gray-500">
-                          <div className="flex items-center gap-2">
-                            <span className="font-medium">Publisher:</span>
-                            <span className="text-gray-900">
-                              {publisher?.firstname} {publisher?.lastname}
-                            </span>
-                          </div>
-                          <div className="flex items-center gap-2">
-                            <span className="font-medium">Journalist:</span>
-                            <span className="text-gray-900">
-                              {journalist?.firstname} {journalist?.lastname}
-                            </span>
-                          </div>
-                          <div className="flex items-center gap-2">
-                            <span className="font-medium">Approved:</span>
-                            <span className="text-gray-900">
-                              {new Date(pubArticle.assigned_on).toLocaleDateString()}
-                            </span>
+                        <div className="flex-1 min-w-0">
+                          <h3 className="text-lg font-medium text-gray-900 line-clamp-1 mb-1">
+                            {article.article_title}
+                          </h3>
+                          <div className="flex flex-wrap items-center gap-4 text-sm text-gray-500">
+                            <div className="flex items-center gap-2">
+                              <svg className="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                              </svg>
+                              <span className="font-medium">Journalist:</span>
+                              <span className="text-gray-900">
+                                {journalist?.firstname} {journalist?.lastname}
+                              </span>
+                            </div>
+                            <div className="flex items-center gap-2">
+                              <svg className="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                              </svg>
+                              <span className="font-medium">Publisher:</span>
+                              <span className="text-gray-900">
+                                {publisher?.firstname} {publisher?.lastname || 'Admin'}
+                              </span>
+                            </div>
                           </div>
                         </div>
                       </div>
+                      
+                      <div className="flex items-center space-x-4">
+                        <button
+                          onClick={() => setExpandedId(expandedId === pubArticle._id ? null : pubArticle._id)}
+                          className="p-2 text-slate-400 hover:text-[#66462C] transition-colors"
+                        >
+                          <svg
+                            className={`w-6 h-6 transform transition-transform ${expandedId === pubArticle._id ? 'rotate-180' : ''}`}
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                          >
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                          </svg>
+                        </button>
+                      </div>
                     </div>
-                  </div>
-                </div>
-              );
-            })}
+
+                    {expandedId === pubArticle._id && (
+                      <div className="mt-6 pt-6 border-t border-gray-200">
+                        <div className="bg-gray-50 rounded-lg p-6 border border-gray-200 space-y-6">
+                          {/* Article Details */}
+                          <div>
+                            <h4 className="text-base font-semibold text-gray-900 mb-4">Article Information</h4>
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                              <div className="bg-white rounded-md p-4 border border-gray-200">
+                                <div className="flex items-center gap-2 mb-1">
+                                  <svg className="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                                  </svg>
+                                  <span className="text-xs font-medium text-gray-500 uppercase tracking-wide">Created</span>
+                                </div>
+                                <p className="text-sm font-semibold text-gray-900 mt-1">
+                                  {article.created_on 
+                                    ? new Date(article.created_on).toLocaleDateString('en-US', { 
+                                        year: 'numeric', 
+                                        month: 'long', 
+                                        day: 'numeric' 
+                                      })
+                                    : 'N/A'}
+                                </p>
+                              </div>
+                              
+                              <div className="bg-white rounded-md p-4 border border-gray-200">
+                                <div className="flex items-center gap-2 mb-1">
+                                  <svg className="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                  </svg>
+                                  <span className="text-xs font-medium text-gray-500 uppercase tracking-wide">Published</span>
+                                </div>
+                                <p className="text-sm font-semibold text-gray-900 mt-1">
+                                  {article.published_on 
+                                    ? new Date(article.published_on).toLocaleDateString('en-US', { 
+                                        year: 'numeric', 
+                                        month: 'long', 
+                                        day: 'numeric' 
+                                      })
+                                    : 'N/A'}
+                                </p>
+                              </div>
+                              
+                              <div className="bg-white rounded-md p-4 border border-gray-200">
+                                <div className="flex items-center gap-2 mb-1">
+                                  <svg className="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z" />
+                                  </svg>
+                                  <span className="text-xs font-medium text-gray-500 uppercase tracking-wide">Article Group</span>
+                                </div>
+                                <p className="text-sm font-semibold text-gray-900 mt-1">{article.article_group || 'N/A'}</p>
+                              </div>
+                              
+                              <div className="bg-white rounded-md p-4 border border-gray-200">
+                                <div className="flex items-center gap-2 mb-1">
+                                  <svg className="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                                  </svg>
+                                  <span className="text-xs font-medium text-gray-500 uppercase tracking-wide">Approved On</span>
+                                </div>
+                                <p className="text-sm font-semibold text-gray-900 mt-1">
+                                  {new Date(pubArticle.assigned_on).toLocaleDateString('en-US', { 
+                                    year: 'numeric', 
+                                    month: 'long', 
+                                    day: 'numeric' 
+                                  })}
+                                </p>
+                              </div>
+                            </div>
+                          </div>
+
+                          {/* Journalist Details */}
+                          {journalist && (
+                            <div>
+                              <h4 className="text-base font-semibold text-gray-900 mb-4">Journalist Information</h4>
+                              <div className="flex items-start gap-4">
+                                <div className="relative w-16 h-16 rounded-full overflow-hidden bg-gray-200 flex-shrink-0">
+                                  {journalist.profile_picture ? (
+                                    <SafeImage
+                                      src={journalist.profile_picture}
+                                      alt={`${journalist.firstname} ${journalist.lastname}`}
+                                      fill
+                                      className="object-cover rounded-full"
+                                    />
+                                  ) : (
+                                    <div className="w-full h-full flex items-center justify-center text-gray-400">
+                                      <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                                      </svg>
+                                    </div>
+                                  )}
+                                </div>
+                                <div className="flex-1">
+                                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    <div className="bg-white rounded-md p-4 border border-gray-200">
+                                      <div className="flex items-center gap-2 mb-1">
+                                        <span className="text-xs font-medium text-gray-500 uppercase tracking-wide">Name</span>
+                                      </div>
+                                      <p className="text-sm font-semibold text-gray-900 mt-1">
+                                        {journalist.firstname} {journalist.lastname}
+                                      </p>
+                                    </div>
+                                    
+                                    {journalist.displayName && (
+                                      <div className="bg-white rounded-md p-4 border border-gray-200">
+                                        <div className="flex items-center gap-2 mb-1">
+                                          <span className="text-xs font-medium text-gray-500 uppercase tracking-wide">Display Name</span>
+                                        </div>
+                                        <p className="text-sm font-semibold text-gray-900 mt-1">{journalist.displayName}</p>
+                                      </div>
+                                    )}
+                                    
+                                    {journalist.journalist_affiliation && (
+                                      <div className="bg-white rounded-md p-4 border border-gray-200">
+                                        <div className="flex items-center gap-2 mb-1">
+                                          <span className="text-xs font-medium text-gray-500 uppercase tracking-wide">Affiliation</span>
+                                        </div>
+                                        <p className="text-sm font-semibold text-gray-900 mt-1">{journalist.journalist_affiliation}</p>
+                                      </div>
+                                    )}
+                                    
+                                    {journalist.area_of_expertise && (
+                                      <div className="bg-white rounded-md p-4 border border-gray-200">
+                                        <div className="flex items-center gap-2 mb-1">
+                                          <span className="text-xs font-medium text-gray-500 uppercase tracking-wide">Area of Expertise</span>
+                                        </div>
+                                        <p className="text-sm font-semibold text-gray-900 mt-1">{journalist.area_of_expertise}</p>
+                                      </div>
+                                    )}
+                                    
+                                    {journalist.trust_score !== undefined && (
+                                      <div className="bg-white rounded-md p-4 border border-gray-200">
+                                        <div className="flex items-center gap-2 mb-1">
+                                          <span className="text-xs font-medium text-gray-500 uppercase tracking-wide">Trust Score</span>
+                                        </div>
+                                        <p className="text-sm font-semibold text-gray-900 mt-1">{journalist.trust_score}</p>
+                                      </div>
+                                    )}
+                                    
+                                    {journalist.total_articles_published !== undefined && (
+                                      <div className="bg-white rounded-md p-4 border border-gray-200">
+                                        <div className="flex items-center gap-2 mb-1">
+                                          <span className="text-xs font-medium text-gray-500 uppercase tracking-wide">Articles Published</span>
+                                        </div>
+                                        <p className="text-sm font-semibold text-gray-900 mt-1">{journalist.total_articles_published}</p>
+                                      </div>
+                                    )}
+                                  </div>
+                                  
+                                  {journalist.journalist_description && (
+                                    <div className="mt-4 pt-4 border-t border-gray-200">
+                                      <div className="flex items-center gap-2 mb-2">
+                                        <span className="text-xs font-medium text-gray-500 uppercase tracking-wide">Description</span>
+                                      </div>
+                                      <p className="text-sm text-gray-700 bg-white p-4 rounded-md border border-gray-200 whitespace-pre-wrap">
+                                        {journalist.journalist_description}
+                                      </p>
+                                    </div>
+                                  )}
+                                </div>
+                              </div>
+                            </div>
+                          )}
+
+                          {/* Publisher/Admin Details */}
+                          {publisher && (
+                            <div>
+                              <h4 className="text-base font-semibold text-gray-900 mb-4">Publisher Information</h4>
+                              <div className="flex items-start gap-4">
+                                <div className="relative w-16 h-16 rounded-full overflow-hidden bg-gray-200 flex-shrink-0">
+                                  {publisher.profile_picture ? (
+                                    <SafeImage
+                                      src={publisher.profile_picture}
+                                      alt={`${publisher.firstname} ${publisher.lastname}`}
+                                      fill
+                                      className="object-cover rounded-full"
+                                    />
+                                  ) : (
+                                    <div className="w-full h-full flex items-center justify-center text-gray-400">
+                                      <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                                      </svg>
+                                    </div>
+                                  )}
+                                </div>
+                                <div className="flex-1">
+                                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    <div className="bg-white rounded-md p-4 border border-gray-200">
+                                      <div className="flex items-center gap-2 mb-1">
+                                        <span className="text-xs font-medium text-gray-500 uppercase tracking-wide">Name</span>
+                                      </div>
+                                      <p className="text-sm font-semibold text-gray-900 mt-1">
+                                        {publisher.firstname} {publisher.lastname}
+                                      </p>
+                                    </div>
+                                    
+                                    {publisher.displayName && (
+                                      <div className="bg-white rounded-md p-4 border border-gray-200">
+                                        <div className="flex items-center gap-2 mb-1">
+                                          <span className="text-xs font-medium text-gray-500 uppercase tracking-wide">Display Name</span>
+                                        </div>
+                                        <p className="text-sm font-semibold text-gray-900 mt-1">{publisher.displayName}</p>
+                                      </div>
+                                    )}
+                                    
+                                    {publisher.department && (
+                                      <div className="bg-white rounded-md p-4 border border-gray-200">
+                                        <div className="flex items-center gap-2 mb-1">
+                                          <span className="text-xs font-medium text-gray-500 uppercase tracking-wide">Department</span>
+                                        </div>
+                                        <p className="text-sm font-semibold text-gray-900 mt-1">{publisher.department}</p>
+                                      </div>
+                                    )}
+                                    
+                                    {publisher.position && (
+                                      <div className="bg-white rounded-md p-4 border border-gray-200">
+                                        <div className="flex items-center gap-2 mb-1">
+                                          <span className="text-xs font-medium text-gray-500 uppercase tracking-wide">Position</span>
+                                        </div>
+                                        <p className="text-sm font-semibold text-gray-900 mt-1">{publisher.position}</p>
+                                      </div>
+                                    )}
+                                    
+                                    {publisher.work_email && (
+                                      <div className="bg-white rounded-md p-4 border border-gray-200">
+                                        <div className="flex items-center gap-2 mb-1">
+                                          <span className="text-xs font-medium text-gray-500 uppercase tracking-wide">Work Email</span>
+                                        </div>
+                                        <p className="text-sm font-semibold text-gray-900 mt-1">{publisher.work_email}</p>
+                                      </div>
+                                    )}
+                                    
+                                    {publisher.total_articles_published !== undefined && (
+                                      <div className="bg-white rounded-md p-4 border border-gray-200">
+                                        <div className="flex items-center gap-2 mb-1">
+                                          <span className="text-xs font-medium text-gray-500 uppercase tracking-wide">Articles Published</span>
+                                        </div>
+                                        <p className="text-sm font-semibold text-gray-900 mt-1">{publisher.total_articles_published}</p>
+                                      </div>
+                                    )}
+                                  </div>
+                                  
+                                  {publisher.bio && (
+                                    <div className="mt-4 pt-4 border-t border-gray-200">
+                                      <div className="flex items-center gap-2 mb-2">
+                                        <span className="text-xs font-medium text-gray-500 uppercase tracking-wide">Bio</span>
+                                      </div>
+                                      <p className="text-sm text-gray-700 bg-white p-4 rounded-md border border-gray-200 whitespace-pre-wrap">
+                                        {publisher.bio}
+                                      </p>
+                                    </div>
+                                  )}
+                                </div>
+                              </div>
+                            </div>
+                          )}
+                        </div>
+                      </div>
+                    )}
+                  </li>
+                );
+              })}
+            </ul>
           </div>
 
           {/* Pagination */}
@@ -232,4 +507,3 @@ export default function ApprovedArticlesPage() {
     </Suspense>
   );
 }
-

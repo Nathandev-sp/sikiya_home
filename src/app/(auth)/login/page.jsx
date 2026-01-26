@@ -4,10 +4,7 @@ import { useState, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 
-import { Button } from '@/components/Button';
-import { TextField } from '@/components/Fields';
 import { Logo } from '@/components/Logo';
-import { SlimLayout } from '@/components/SlimLayout';
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000';
 
@@ -83,12 +80,22 @@ function LoginForm() {
       await new Promise(resolve => setTimeout(resolve, 100));
 
       // Redirect based on role or redirect parameter
-      if (data.role === 'admin' && redirect.startsWith('/admin')) {
-        console.log('Redirecting to:', redirect);
-        window.location.href = redirect; // Use window.location for full page reload
-      } else if (data.role === 'admin') {
-        console.log('Redirecting to /admin');
-        window.location.href = '/admin'; // Use window.location for full page reload
+      if (data.role === 'admin') {
+        if (redirect.startsWith('/admin')) {
+          console.log('Redirecting to:', redirect);
+          window.location.href = redirect;
+        } else {
+          console.log('Redirecting to /admin');
+          window.location.href = '/admin';
+        }
+      } else if (data.role === 'publisher') {
+        if (redirect.startsWith('/publisher')) {
+          console.log('Redirecting to:', redirect);
+          window.location.href = redirect;
+        } else {
+          console.log('Redirecting to /publisher');
+          window.location.href = '/publisher';
+        }
       } else {
         console.log('Redirecting to:', redirect);
         router.push(redirect);
@@ -101,84 +108,94 @@ function LoginForm() {
   }
 
   return (
-    <SlimLayout>
-      <div className="flex">
-        <Link href="/" aria-label="Home">
-          <Logo className="h-24 w-auto" />
+    <div className="flex min-h-full flex-col justify-center py-12 sm:px-6 lg:px-8 bg-gray-50">
+      <div className="sm:mx-auto sm:w-full sm:max-w-md">
+        <Link href="/" aria-label="Home" className="flex justify-center">
+          <Logo className="h-20 w-auto" />
         </Link>
+        <h2 className="mt-6 text-center text-2xl/9 font-bold tracking-tight text-gray-900">
+          Admin Panel
+        </h2>
       </div>
-      <h2 className="mt-20 text-lg font-semibold text-gray-900">
-        Sign in to your account
-      </h2>
-      <p className="mt-2 text-sm text-gray-700">
-        Don't have an account?{' '}
-        <Link
-          href="/register"
-          className="font-medium text-[#66462C] hover:underline"
-        >
-          Sign up
-        </Link>{' '}
-        for a free trial.
-      </p>
-      {error && (
-        <div className="mt-4 p-3 bg-red-50 border border-red-200 rounded-md">
-          <p className="text-sm text-red-800">{error}</p>
+
+      <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-[480px]">
+        <div className="bg-white px-6 py-12 shadow-sm sm:rounded-lg sm:px-12">
+          {error && (
+            <div className="mb-6 p-3 bg-red-50 border border-red-200 rounded-md">
+              <p className="text-sm text-red-800">{error}</p>
+            </div>
+          )}
+          <form onSubmit={handleSubmit} className="space-y-6">
+            <div>
+              <label htmlFor="email" className="block text-sm/6 font-medium text-gray-900">
+                Email address
+              </label>
+              <div className="mt-2">
+                <input
+                  id="email"
+                  name="email"
+                  type="email"
+                  required
+                  autoComplete="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  disabled={loading}
+                  className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-[#66462C] sm:text-sm/6 disabled:opacity-50 disabled:cursor-not-allowed"
+                />
+              </div>
+            </div>
+
+            <div>
+              <label htmlFor="password" className="block text-sm/6 font-medium text-gray-900">
+                Password
+              </label>
+              <div className="mt-2">
+                <input
+                  id="password"
+                  name="password"
+                  type="password"
+                  required
+                  autoComplete="current-password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  disabled={loading}
+                  className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-[#66462C] sm:text-sm/6 disabled:opacity-50 disabled:cursor-not-allowed"
+                />
+              </div>
+            </div>
+
+            <div>
+              <button
+                type="submit"
+                disabled={loading}
+                className="flex w-full justify-center rounded-md bg-[#66462C] px-3 py-1.5 text-sm/6 font-semibold text-white shadow-xs hover:bg-[#8B6F47] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#66462C] disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                {loading ? 'Signing in...' : 'Sign in'}
+              </button>
+            </div>
+          </form>
         </div>
-      )}
-      <form onSubmit={handleSubmit} className="mt-10 grid grid-cols-1 gap-y-8">
-        <TextField
-          label="Email address"
-          name="email"
-          type="email"
-          autoComplete="email"
-          required
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          disabled={loading}
-        />
-        <TextField
-          label="Password"
-          name="password"
-          type="password"
-          autoComplete="current-password"
-          required
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          disabled={loading}
-        />
-        <div>
-          <Button 
-            type="submit" 
-            variant="solid" 
-            color="blue" 
-            className="w-full"
-            disabled={loading}
-          >
-            <span>
-              {loading ? 'Signing in...' : 'Sign in'}{' '}
-              {!loading && <span aria-hidden="true">&rarr;</span>}
-            </span>
-          </Button>
-        </div>
-      </form>
-    </SlimLayout>
+      </div>
+    </div>
   );
 }
 
 export default function Login() {
   return (
     <Suspense fallback={
-      <SlimLayout>
-        <div className="flex">
-          <Link href="/" aria-label="Home">
-            <Logo className="h-24 w-auto" />
-          </Link>
+      <div className="flex min-h-full flex-col justify-center py-12 sm:px-6 lg:px-8 bg-gray-50">
+        <div className="sm:mx-auto sm:w-full sm:max-w-md">
+          <div className="flex justify-center">
+            <Logo className="h-20 w-auto" />
+          </div>
+          <h2 className="mt-6 text-center text-2xl/9 font-bold tracking-tight text-gray-900">
+            Admin Panel
+          </h2>
         </div>
-        <div className="mt-20">
-          <h2 className="text-lg font-semibold text-gray-900">Loading...</h2>
-          <p className="mt-2 text-sm text-gray-700">Please wait while we load the login page.</p>
+        <div className="mt-10 text-center">
+          <p className="text-sm text-gray-500">Loading...</p>
         </div>
-      </SlimLayout>
+      </div>
     }>
       <LoginForm />
     </Suspense>

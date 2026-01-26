@@ -1,3 +1,8 @@
 {
-  "/page": "app/page.js"
+  "/publisher/articles/[id]/page": "app/publisher/articles/[id]/page.js",
+  "/publisher/articles/approved/page": "app/publisher/articles/approved/page.js",
+  "/publisher/page": "app/publisher/page.js",
+  "/publisher/articles/pending/page": "app/publisher/articles/pending/page.js",
+  "/publisher/videos/[id]/page": "app/publisher/videos/[id]/page.js",
+  "/publisher/videos/approved/page": "app/publisher/videos/approved/page.js"
 }

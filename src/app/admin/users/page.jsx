@@ -2,6 +2,7 @@
 
 import { useEffect, useState, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
+import { SafeImage } from '@/components/SafeImage';
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000';
 
@@ -12,8 +13,11 @@ function AdminUsersPageContent() {
   const limit = 10;
 
   const [users, setUsers] = useState([]);
+  const [allUsers, setAllUsers] = useState([]); // Store all users for filtering
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [expandedId, setExpandedId] = useState(null);
+  const [searchQuery, setSearchQuery] = useState('');
   const [pagination, setPagination] = useState({
     total: 0,
     pages: 0,
@@ -84,7 +88,10 @@ function AdminUsersPageContent() {
       }
 
       const data = await response.json();
-      setUsers(data.users || []);
+      const fetchedUsers = data.users || [];
+      setAllUsers(fetchedUsers);
+      // The useEffect will handle filtering based on searchQuery
+      
       setPagination({
         total: data.pagination?.total || 0,
         pages: data.pagination?.pages || 0,
@@ -124,6 +131,60 @@ function AdminUsersPageContent() {
     }
   };
 
+  const getUserName = (user) => {
+    if (user.profile) {
+      return user.profile.displayName || `${user.profile.firstname} ${user.profile.lastname}`;
+    }
+    return user.email.split('@')[0]; // Fallback to email username
+  };
+
+  const getUserLocation = (user) => {
+    if (user.profile) {
+      const city = user.profile.city_of_residence || '';
+      const country = user.profile.country_of_residence || '';
+      if (city && country) {
+        return `${city}, ${country}`;
+      } else if (city) {
+        return city;
+      } else if (country) {
+        return country;
+      }
+    }
+    return 'N/A';
+  };
+
+  const getRoleDisplay = (role) => {
+    if (role === 'general' || role === 'contributor') {
+      return role.charAt(0).toUpperCase() + role.slice(1);
+    }
+    return null; // Don't display other roles
+  };
+
+  // Filter users based on search query
+  useEffect(() => {
+    if (!searchQuery.trim()) {
+      setUsers(allUsers);
+      return;
+    }
+
+    const query = searchQuery.toLowerCase().trim();
+    const filtered = allUsers.filter((user) => {
+      const email = user.email?.toLowerCase() || '';
+      const firstname = user.profile?.firstname?.toLowerCase() || '';
+      const lastname = user.profile?.lastname?.toLowerCase() || '';
+      const fullName = `${firstname} ${lastname}`.trim();
+      
+      return (
+        email.includes(query) ||
+        firstname.includes(query) ||
+        lastname.includes(query) ||
+        fullName.includes(query)
+      );
+    });
+
+    setUsers(filtered);
+  }, [searchQuery, allUsers]);
+
   if (loading && users.length === 0) {
     return (
       <div className="flex items-center justify-center h-64">
@@ -135,7 +196,32 @@ function AdminUsersPageContent() {
   return (
     <div className="space-y-8">
       <div className="flex justify-between items-center">
-        <h2 className="text-2xl font-bold text-gray-900">User Management</h2>
+        <h1 className="font-display text-3xl font-semibold tracking-tight text-slate-900">
+          User Management
+        </h1>
+      </div>
+
+      {/* Search Bar */}
+      <div className="bg-white shadow-sm rounded-lg border border-gray-200 p-4">
+        <div className="relative">
+          <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+            <svg className="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+            </svg>
+          </div>
+          <input
+            type="text"
+            placeholder="Search by email, first name, or last name..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            className="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md leading-5 bg-white placeholder-gray-500 focus:outline-none focus:placeholder-gray-400 focus:ring-1 focus:ring-[#66462C] focus:border-[#66462C] sm:text-sm"
+          />
+        </div>
+        {searchQuery && (
+          <div className="mt-2 text-sm text-gray-500">
+            Showing {users.length} result{users.length !== 1 ? 's' : ''} for "{searchQuery}"
+          </div>
+        )}
       </div>
 
       {error && (
@@ -144,71 +230,262 @@ function AdminUsersPageContent() {
         </div>
       )}
 
-      {!loading && !error && (
-        <div className="bg-white shadow overflow-hidden sm:rounded-lg">
-          <table className="min-w-full divide-y divide-gray-200">
-            <thead className="bg-gray-50">
-              <tr>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Email
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Role
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Verified
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Created
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Actions
-                </th>
-              </tr>
-            </thead>
-            <tbody className="bg-white divide-y divide-gray-200">
-              {users.map((user) => (
-                <tr key={user._id}>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                    {user.email}
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                    <select
-                      value={user.role}
-                      onChange={(e) => updateUserRole(user._id, e.target.value)}
-                      className="border border-gray-300 rounded px-2 py-1 text-sm"
-                    >
-                      <option value="needID">needID</option>
-                      <option value="general">general</option>
-                      <option value="journalist">journalist</option>
-                      <option value="thoughtleader">thoughtleader</option>
-                      <option value="contributor">contributor</option>
-                      <option value="publisher">publisher</option>
-                      <option value="admin">admin</option>
-                    </select>
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                    {user.verifiedEmail ? (
-                      <span className="text-green-600">✓ Verified</span>
-                    ) : (
-                      <span className="text-red-600">✗ Not Verified</span>
-                    )}
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                    {new Date(user.created_on).toLocaleDateString()}
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                    <button
-                      onClick={() => router.push(`/admin/users/${user._id}`)}
-                      className="text-blue-600 hover:text-blue-900"
-                    >
-                      View Details
-                    </button>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+      {!loading && !error && users.length === 0 && (
+        <div className="bg-white shadow-sm rounded-lg p-12 text-center">
+          <p className="text-slate-600">No users found</p>
+        </div>
+      )}
+
+      {!loading && !error && users.length > 0 && (
+        <div className="bg-white shadow-sm overflow-hidden rounded-lg border border-gray-100">
+          <ul className="divide-y divide-gray-200">
+            {users.map((user) => {
+              const isExpanded = expandedId === user._id;
+              const showRole = user.role === 'general' || user.role === 'contributor';
+              
+              return (
+                <li key={user._id} className="p-6">
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center space-x-4 flex-1">
+                      <div className="relative w-16 h-16 rounded-full overflow-hidden bg-gray-200">
+                        {user.profile?.profile_picture ? (
+                          <SafeImage
+                            src={user.profile.profile_picture}
+                            alt={getUserName(user)}
+                            fill
+                            className="object-cover rounded-full"
+                          />
+                        ) : (
+                          <div className="w-full h-full flex items-center justify-center text-gray-400">
+                            <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                            </svg>
+                          </div>
+                        )}
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <h3 className="text-lg font-medium text-gray-900">
+                          {getUserName(user)}
+                        </h3>
+                        <div className="mt-2 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 text-sm">
+                          <div className="flex items-center gap-2 text-gray-600 min-w-0">
+                            <svg className="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                            </svg>
+                            <span className="truncate">{user.email}</span>
+                          </div>
+                          <div className="flex items-center gap-2 text-gray-600 min-w-0">
+                            <svg className="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                            </svg>
+                            <span className="truncate">{getUserLocation(user)}</span>
+                          </div>
+                          <div className={`flex items-center gap-2 ${user.verifiedEmail ? 'text-green-600' : 'text-red-600'}`}>
+                            {user.verifiedEmail ? (
+                              <>
+                                <svg className="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                                <span>Email Verified</span>
+                              </>
+                            ) : (
+                              <>
+                                <svg className="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                                <span>Email Not Verified</span>
+                              </>
+                            )}
+                          </div>
+                          {showRole && (
+                            <div className="flex items-center">
+                              <span className="px-2 py-1 text-xs font-medium rounded-full bg-blue-100 text-blue-800">
+                                {getRoleDisplay(user.role)}
+                              </span>
+                            </div>
+                          )}
+                        </div>
+                      </div>
+                    </div>
+                    <div className="flex items-center space-x-4">
+                      <button
+                        onClick={() => setExpandedId(isExpanded ? null : user._id)}
+                        className="p-2 text-slate-400 hover:text-[#66462C] transition-colors"
+                      >
+                        <svg
+                          className={`w-6 h-6 transform transition-transform ${isExpanded ? 'rotate-180' : ''}`}
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                        </svg>
+                      </button>
+                    </div>
+                  </div>
+
+                  {isExpanded && (
+                    <div className="mt-6 pt-6 border-t border-gray-200">
+                      <div className="bg-gray-50 rounded-lg p-6 border border-gray-200">
+                        <h4 className="text-base font-semibold text-gray-900 mb-4">User Details</h4>
+                        
+                        <div className="mb-4">
+                          <label className="block text-sm font-medium text-gray-700 mb-2">
+                            Role
+                          </label>
+                          <select
+                            value={user.role}
+                            onChange={(e) => updateUserRole(user._id, e.target.value)}
+                            className="w-full max-w-xs border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#66462C] focus:border-transparent"
+                          >
+                            <option value="needID">needID</option>
+                            <option value="general">General</option>
+                            <option value="contributor">Contributor</option>
+                          </select>
+                        </div>
+
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                          {user.profile?.displayName && (
+                            <div className="bg-white rounded-md p-4 border border-gray-200">
+                              <div className="flex items-center gap-2 mb-1">
+                                <svg className="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                                </svg>
+                                <span className="text-xs font-medium text-gray-500 uppercase tracking-wide">Display Name</span>
+                              </div>
+                              <p className="text-sm font-semibold text-gray-900 mt-1">{user.profile.displayName}</p>
+                            </div>
+                          )}
+
+                          {user.profile?.firstname && (
+                            <div className="bg-white rounded-md p-4 border border-gray-200">
+                              <div className="flex items-center gap-2 mb-1">
+                                <svg className="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                                </svg>
+                                <span className="text-xs font-medium text-gray-500 uppercase tracking-wide">Full Name</span>
+                              </div>
+                              <p className="text-sm font-semibold text-gray-900 mt-1">
+                                {user.profile.firstname} {user.profile.lastname}
+                              </p>
+                            </div>
+                          )}
+
+                          <div className="bg-white rounded-md p-4 border border-gray-200">
+                            <div className="flex items-center gap-2 mb-1">
+                              <svg className="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                              </svg>
+                              <span className="text-xs font-medium text-gray-500 uppercase tracking-wide">Email</span>
+                            </div>
+                            <p className="text-sm font-semibold text-gray-900 mt-1">{user.email}</p>
+                          </div>
+
+                          <div className="bg-white rounded-md p-4 border border-gray-200">
+                            <div className="flex items-center gap-2 mb-1">
+                              <svg className="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                              </svg>
+                              <span className="text-xs font-medium text-gray-500 uppercase tracking-wide">Location</span>
+                            </div>
+                            <p className="text-sm font-semibold text-gray-900 mt-1">{getUserLocation(user)}</p>
+                          </div>
+
+                          {user.profile?.city_of_residence && (
+                            <div className="bg-white rounded-md p-4 border border-gray-200">
+                              <div className="flex items-center gap-2 mb-1">
+                                <svg className="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                                </svg>
+                                <span className="text-xs font-medium text-gray-500 uppercase tracking-wide">City</span>
+                              </div>
+                              <p className="text-sm font-semibold text-gray-900 mt-1">{user.profile.city_of_residence}</p>
+                            </div>
+                          )}
+
+                          {user.profile?.country_of_residence && (
+                            <div className="bg-white rounded-md p-4 border border-gray-200">
+                              <div className="flex items-center gap-2 mb-1">
+                                <svg className="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                                <span className="text-xs font-medium text-gray-500 uppercase tracking-wide">Country</span>
+                              </div>
+                              <p className="text-sm font-semibold text-gray-900 mt-1">{user.profile.country_of_residence}</p>
+                            </div>
+                          )}
+
+                          {user.profile?.phone_number && (
+                            <div className="bg-white rounded-md p-4 border border-gray-200">
+                              <div className="flex items-center gap-2 mb-1">
+                                <svg className="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                                </svg>
+                                <span className="text-xs font-medium text-gray-500 uppercase tracking-wide">Phone</span>
+                              </div>
+                              <p className="text-sm font-semibold text-gray-900 mt-1">{user.profile.phone_number}</p>
+                            </div>
+                          )}
+
+                          {user.profile?.bio && (
+                            <div className="bg-white rounded-md p-4 border border-gray-200 md:col-span-2">
+                              <div className="flex items-center gap-2 mb-1">
+                                <svg className="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                                </svg>
+                                <span className="text-xs font-medium text-gray-500 uppercase tracking-wide">Bio</span>
+                              </div>
+                              <p className="text-sm text-gray-900 mt-1">{user.profile.bio}</p>
+                            </div>
+                          )}
+
+                          {user.profile?.area_of_expertise && (
+                            <div className="bg-white rounded-md p-4 border border-gray-200">
+                              <div className="flex items-center gap-2 mb-1">
+                                <svg className="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+                                </svg>
+                                <span className="text-xs font-medium text-gray-500 uppercase tracking-wide">Area of Expertise</span>
+                              </div>
+                              <p className="text-sm font-semibold text-gray-900 mt-1">{user.profile.area_of_expertise}</p>
+                            </div>
+                          )}
+
+                          <div className="bg-white rounded-md p-4 border border-gray-200">
+                            <div className="flex items-center gap-2 mb-1">
+                              <svg className="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                              </svg>
+                              <span className="text-xs font-medium text-gray-500 uppercase tracking-wide">Account Created</span>
+                            </div>
+                            <p className="text-sm font-semibold text-gray-900 mt-1">
+                              {new Date(user.created_on).toLocaleDateString()}
+                            </p>
+                          </div>
+
+                          {user.last_login && (
+                            <div className="bg-white rounded-md p-4 border border-gray-200">
+                              <div className="flex items-center gap-2 mb-1">
+                                <svg className="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                                <span className="text-xs font-medium text-gray-500 uppercase tracking-wide">Last Login</span>
+                              </div>
+                              <p className="text-sm font-semibold text-gray-900 mt-1">
+                                {new Date(user.last_login).toLocaleDateString()}
+                              </p>
+                            </div>
+                          )}
+                        </div>
+                      </div>
+                    </div>
+                  )}
+                </li>
+              );
+            })}
+          </ul>
         </div>
       )}
 
@@ -253,4 +530,3 @@ export default function AdminUsersPage() {
     </Suspense>
   );
 }
-

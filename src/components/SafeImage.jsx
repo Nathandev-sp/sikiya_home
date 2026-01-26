@@ -51,13 +51,16 @@ export function SafeImage({ src, alt, fill, className, width, height, ...props }
   }
 
   // Use Next.js Image component with unoptimized for external URLs
+  // If neither fill nor width/height are provided, use default dimensions
+  const shouldFill = fill || (!width && !height);
+  
   return (
     <Image
       src={imgSrc}
       alt={alt || ''}
-      fill={fill}
-      width={!fill ? width : undefined}
-      height={!fill ? height : undefined}
+      fill={shouldFill}
+      width={!shouldFill ? (width || 400) : undefined}
+      height={!shouldFill ? (height || 400) : undefined}
       className={className}
       onError={() => setHasError(true)}
       unoptimized={imgSrc.startsWith('http://') || imgSrc.startsWith('https://')}

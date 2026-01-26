@@ -8,6 +8,7 @@ const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000';
 export default function AdminAdminsPage() {
   const router = useRouter();
   const [admins, setAdmins] = useState([]);
+  const [currentAdmin, setCurrentAdmin] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -75,7 +76,15 @@ export default function AdminAdminsPage() {
       }
 
       const data = await response.json();
-      setAdmins(Array.isArray(data) ? data : []);
+      
+      // Handle both old format (array) and new format (object)
+      if (Array.isArray(data)) {
+        setAdmins(data);
+        setCurrentAdmin(null);
+      } else {
+        setAdmins(data.admins || []);
+        setCurrentAdmin(data.currentAdmin || null);
+      }
     } catch (err) {
       console.error('Error fetching admins:', err);
       setError(err.message);
@@ -130,10 +139,43 @@ export default function AdminAdminsPage() {
               </tr>
             </thead>
             <tbody className="bg-white divide-y divide-gray-200">
-              {admins.length === 0 ? (
+              {currentAdmin && (
+                <tr key={currentAdmin._id} className="bg-[#F6F3EF]">
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                    <div className="flex items-center gap-2">
+                      {currentAdmin.displayName || `${currentAdmin.firstname} ${currentAdmin.lastname}`}
+                      <span className="px-2 py-1 text-xs font-semibold rounded-full bg-[#66462C] text-white">
+                        Self Account
+                      </span>
+                    </div>
+                  </td>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                    {currentAdmin.department}
+                  </td>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                    {currentAdmin.position}
+                  </td>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                    {currentAdmin.article_group}
+                  </td>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                    <span className={`px-2 py-1 text-xs font-semibold rounded-full ${
+                      currentAdmin.employment_status === 'active' 
+                        ? 'bg-green-100 text-green-800' 
+                        : 'bg-red-100 text-red-800'
+                    }`}>
+                      {currentAdmin.employment_status}
+                    </span>
+                  </td>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                    {currentAdmin.total_articles_published || 0}
+                  </td>
+                </tr>
+              )}
+              {admins.length === 0 && !currentAdmin ? (
                 <tr>
                   <td colSpan="6" className="px-6 py-4 text-center text-sm text-gray-500">
-                    No admins found
+                    No other admins found
                   </td>
                 </tr>
               ) : (

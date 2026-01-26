@@ -12,6 +12,7 @@ export default function PendingJournalistsPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [expandedId, setExpandedId] = useState(null);
+  const [verifiedIds, setVerifiedIds] = useState({});
 
   useEffect(() => {
     checkAdminAccess();
@@ -96,8 +97,13 @@ export default function PendingJournalistsPage() {
         throw new Error(errorData.error || 'Failed to approve journalist');
       }
 
-      // Remove from list
+      // Remove from list and clear verification state
       setJournalists(journalists.filter(j => j._id !== journalistId));
+      setVerifiedIds(prev => {
+        const newState = { ...prev };
+        delete newState[journalistId];
+        return newState;
+      });
       alert('Journalist approved successfully!');
     } catch (err) {
       console.error('Error approving journalist:', err);
@@ -177,9 +183,15 @@ export default function PendingJournalistsPage() {
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                       </svg>
                     </button>
+                    
                     <button
                       onClick={() => approveJournalist(journalist._id)}
-                      className="px-4 py-2 bg-[#66462C] text-white text-sm font-medium rounded-lg hover:bg-[#563B25] transition-colors"
+                      disabled={!verifiedIds[journalist._id]}
+                      className={`px-4 py-2 text-sm font-medium rounded-lg transition-colors ${
+                        verifiedIds[journalist._id]
+                          ? 'bg-[#66462C] text-white hover:bg-[#563B25] cursor-pointer'
+                          : 'bg-gray-300 text-gray-500 cursor-not-allowed'
+                      }`}
                     >
                       Approve
                     </button>
@@ -297,6 +309,28 @@ export default function PendingJournalistsPage() {
                           </p>
                         </div>
                       )}
+                      
+                      {/* Checkbox for ID verification at the bottom */}
+                      <div className="mt-6 pt-4 border-t border-gray-200">
+                        <div className="flex items-center space-x-3">
+                          <input
+                            type="checkbox"
+                            id={`verify-${journalist._id}`}
+                            checked={verifiedIds[journalist._id] || false}
+                            onChange={() => setVerifiedIds(prev => ({
+                              ...prev,
+                              [journalist._id]: !prev[journalist._id]
+                            }))}
+                            className="w-5 h-5 text-[#66462C] border-gray-300 rounded focus:ring-[#66462C] focus:ring-2"
+                          />
+                          <label 
+                            htmlFor={`verify-${journalist._id}`}
+                            className="text-sm font-medium text-gray-900 cursor-pointer"
+                          >
+                            I verified the ID
+                          </label>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 )}

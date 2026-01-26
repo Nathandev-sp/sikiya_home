@@ -113,30 +113,62 @@ export default function PendingArticlesPage() {
             <Link
               key={article._id}
               href={`/admin/articles/${article._id}`}
-              className="bg-white shadow-sm rounded-lg overflow-hidden hover:shadow-md transition-shadow border border-gray-100"
+              className="group bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden hover:shadow-lg hover:border-[#66462C]/20 transition-all duration-300"
             >
-              {article.article_front_image && (
-                <div className="relative w-full bg-gray-200" style={{ aspectRatio: '1.25/0.85', height: 'auto' }}>
+              {/* Image Section */}
+              <div className="relative w-full bg-gradient-to-br from-gray-100 to-gray-200" style={{ aspectRatio: '16/9' }}>
+                {article.article_front_image ? (
                   <SafeImage
                     src={article.article_front_image}
                     alt={article.article_title}
                     fill
-                    className="object-cover"
+                    className="object-cover group-hover:scale-105 transition-transform duration-300"
                   />
+                ) : (
+                  <div className="w-full h-full flex items-center justify-center">
+                    <svg className="w-16 h-16 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                    </svg>
+                  </div>
+                )}
+                {/* Pending Badge */}
+                <div className="absolute top-3 right-3">
+                  <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-amber-100 text-amber-800 border border-amber-200">
+                    Pending Review
+                  </span>
                 </div>
-              )}
-              <div className="p-5">
-                <h3 className="text-lg font-semibold text-slate-900 line-clamp-2 mb-2">
+              </div>
+
+              {/* Content Section */}
+              <div className="p-6">
+                <h3 className="text-lg font-semibold text-slate-900 line-clamp-2 mb-3 group-hover:text-[#66462C] transition-colors">
                   {article.article_title}
                 </h3>
-                <p className="text-sm text-slate-600 line-clamp-2 mb-4">
+                <p className="text-sm text-slate-600 line-clamp-3 mb-4 leading-relaxed">
                   {article.article_highlight}
                 </p>
-                <div className="flex items-center justify-between text-xs text-slate-500">
-                  <span className="font-medium">
-                    {article.journalist_id?.firstname} {article.journalist_id?.lastname}
-                  </span>
-                  <span>{new Date(article.created_on).toLocaleDateString()}</span>
+                
+                {/* Metadata */}
+                <div className="flex items-center justify-between pt-4 border-t border-gray-100">
+                  <div className="flex items-center space-x-2">
+                    <div className="w-8 h-8 rounded-full bg-[#F6F3EF] flex items-center justify-center">
+                      <svg className="w-4 h-4 text-[#66462C]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                      </svg>
+                    </div>
+                    <div>
+                      <p className="text-xs font-medium text-slate-900">
+                        {article.journalist_id?.firstname} {article.journalist_id?.lastname}
+                      </p>
+                    </div>
+                  </div>
+                  <div className="text-xs text-slate-500">
+                    {new Date(article.created_on).toLocaleDateString('en-US', { 
+                      month: 'short', 
+                      day: 'numeric',
+                      year: 'numeric'
+                    })}
+                  </div>
                 </div>
               </div>
             </Link>
