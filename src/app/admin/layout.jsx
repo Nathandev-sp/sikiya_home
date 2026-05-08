@@ -90,6 +90,12 @@ const EyeIcon = ({ className }) => (
   </svg>
 )
 
+const SparklesIcon = ({ className }) => (
+  <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L23 12l-6.857 2.286L14 21l-2.286-6.857L5 12l6.857-2.143L14 3z" />
+  </svg>
+)
+
 const navigation = [
   { name: 'Dashboard', href: '/admin', icon: HomeIcon },
   { name: 'Pending Journalists', href: '/admin/journalists/pending', icon: UserIcon },
@@ -105,6 +111,7 @@ const approvedNavigation = [
 const managementNavigation = [
   { name: 'Users', href: '/admin/users', icon: UsersIcon },
   { name: 'Journalists', href: '/admin/journalists', icon: JournalistIcon },
+  { name: 'Thought Leaders', href: '/admin/thought-leaders', icon: SparklesIcon },
   { name: 'Publishers', href: '/admin/publishers', icon: PublisherIcon },
   { name: 'Admins', href: '/admin/admins', icon: ShieldCheckIcon },
 ]

@@ -1,8 +1,7 @@
 {
-  "/publisher/articles/[id]/page": "app/publisher/articles/[id]/page.js",
-  "/publisher/articles/approved/page": "app/publisher/articles/approved/page.js",
-  "/publisher/page": "app/publisher/page.js",
-  "/publisher/articles/pending/page": "app/publisher/articles/pending/page.js",
-  "/publisher/videos/[id]/page": "app/publisher/videos/[id]/page.js",
-  "/publisher/videos/approved/page": "app/publisher/videos/approved/page.js"
+  "/(auth)/login/page": "app/(auth)/login/page.js",
+  "/page": "app/page.js",
+  "/admin/page": "app/admin/page.js",
+  "/admin/thought-leaders/page": "app/admin/thought-leaders/page.js",
+  "/admin/users/page": "app/admin/users/page.js"
 }
