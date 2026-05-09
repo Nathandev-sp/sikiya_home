@@ -1,18 +1,15 @@
-import { Header } from '@/components/Header'
+import { AboutSections } from '@/components/AboutSections'
 import { Footer } from '@/components/Footer'
-import { Faqs } from '@/components/Faqs'
-import { SecondaryFeatures } from '@/components/SecondaryFeatures'
+import { Header } from '@/components/Header'
 
 export default function LearnMorePage() {
   return (
     <>
       <Header />
-      <main className="flex-auto">
-        <SecondaryFeatures />
-        <Faqs />
+      <main className="flex-auto overflow-x-clip">
+        <AboutSections />
       </main>
       <Footer />
     </>
   )
 }
-

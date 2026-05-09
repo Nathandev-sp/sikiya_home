@@ -12,10 +12,10 @@ export function NavLink({ href, children }) {
     <Link
       href={href}
       className={clsx(
-        'inline-block rounded-lg px-2 py-1 text-sm transition-colors',
+        'inline-block rounded-full px-3 py-1.5 text-sm font-medium transition-colors',
         isActive
-          ? 'bg-[#66462C] text-white'
-          : 'text-slate-700 hover:bg-slate-100 hover:text-slate-900'
+          ? 'bg-[#8D6242] text-white shadow-sm'
+          : 'text-[#4A3428] hover:bg-black/[0.04] hover:text-[#2A1B14]',
       )}
     >
       {children}

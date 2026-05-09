@@ -73,8 +73,8 @@ function MobileNavigation() {
       >
         <MobileNavLink href="/">{t.header.home}</MobileNavLink>
         <MobileNavLink href="/top_contributors">{t.header.topJournalists}</MobileNavLink>
-        <MobileNavLink href="/contribute">{t.header.joinSikiya}</MobileNavLink>
-        <MobileNavLink href="/learn_more">{t.header.learnMore}</MobileNavLink>
+        <MobileNavLink href="/explore">{t.header.explore}</MobileNavLink>
+        <MobileNavLink href="/learn_more">{t.header.about}</MobileNavLink>
       </PopoverPanel>
     </Popover>
   )
@@ -85,18 +85,18 @@ export function Header() {
   const t = getTranslation(language)
 
   return (
-    <header className="py-8">
+    <header className="bg-[#F9F9F7] pb-6 pt-6 sm:pb-8 sm:pt-8">
       <Container>
         <nav className="relative z-50 flex justify-between">
           <div className="flex items-center md:gap-x-12">
             <Link href="/" aria-label="Home">
               <Logo className="h-20 w-auto" />
             </Link>
-            <div className="hidden md:flex md:gap-x-6">
+            <div className="hidden md:flex md:items-center md:gap-x-1">
               <NavLink href="/">{t.header.home}</NavLink>
               <NavLink href="/top_contributors">{t.header.topJournalists}</NavLink>
-              <NavLink href="/contribute">{t.header.joinSikiya}</NavLink>
-              <NavLink href="/learn_more">{t.header.learnMore}</NavLink>
+              <NavLink href="/explore">{t.header.explore}</NavLink>
+              <NavLink href="/learn_more">{t.header.about}</NavLink>
             </div>
           </div>
           <div className="flex items-center gap-x-5 md:gap-x-8">

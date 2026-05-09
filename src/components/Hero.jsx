@@ -1,195 +1,132 @@
 'use client'
 
 import Image from 'next/image'
-import Link from 'next/link'
-
 import { Button } from '@/components/Button'
 import { Container } from '@/components/Container'
+import { MissionSlider } from '@/components/MissionSlider'
 import { useLanguage } from '@/lib/LanguageContext'
 import { getTranslation } from '@/lib/translations'
 
-// Import hero images
 import africanBaobab from '@/assets/Hero Images/African Baobab.jpg'
 import africanCelebration from '@/assets/Hero Images/African celebration.jpg'
 import africanChildren from '@/assets/Hero Images/African Children.jpg'
-import africanSoccer from '@/assets/Hero Images/African Soccer.jpg'
 import capetown from '@/assets/Hero Images/Capetown south africa.jpg'
-import leopardImage from '@/assets/Hero Images/Leopard Image.jpg'
 import michaelSchofield from '@/assets/Hero Images/michael-schofield-IhuzPxyBunQ-unsplash.jpg'
-import { getImageUrl } from '@/utils/imageUtils'
 
 export function Hero() {
   const { language } = useLanguage()
   const t = getTranslation(language)
 
-  const posts = [
-    {
-      id: 1,
-      title: t.heroPosts.empower.title,
-      href: '#',
-      description: t.heroPosts.empower.description,
-      imageUrl: getImageUrl('web/Images/Empower with knowledge.jpg'),
-      date: 'Mar 16, 2020',
-      datetime: '2020-03-16',
-      author: {
-        name: 'Michael Foster',
-        imageUrl:
-          'https://images.unsplash.com/photo-1519244703995-f4e0f30006d5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-      },
-    },
-    {
-      id: 2,
-      title: t.heroPosts.criticalThinking.title,
-      href: '#',
-      description: t.heroPosts.criticalThinking.description,
-      imageUrl: getImageUrl('web/Images/Encourage critical thinking.jpg'),
-      date: 'Mar 10, 2020',
-      datetime: '2020-03-10',
-      author: {
-        name: 'Lindsay Walton',
-        imageUrl:
-          'https://images.unsplash.com/photo-1517841905240-472988babdf9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-      },
-    },
-    {
-      id: 3,
-      title: t.heroPosts.engagement.title,
-      href: '#',
-      description: t.heroPosts.engagement.description,
-      imageUrl: getImageUrl('web/Images/Spark Meaningful conversation.jpg'),
-      date: 'Feb 12, 2020',
-      datetime: '2020-02-12',
-      author: {
-        name: 'Tom Cook',
-        imageUrl: getImageUrl('web/Images/Empower with knowledge.jpg'),
-      },
-    },
-  ]
   return (
     <>
-      <Container className="relative py-20 text-center sm:py-32 lg:py-40">
-        {/* Decorative Image Placeholders - Scattered around the hero */}
-        <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          {/* Top Left */}
-          <div className="absolute top-8 left-12 w-32 h-24 rounded-lg bg-[#E5E2DC] border-1.2 border-[#66462C]/20 shadow-lg opacity-80 hidden md:block overflow-hidden">
-            <div className="relative w-full h-full">
-              <Image src={africanBaobab} alt="African Baobab" fill className="object-cover rounded-lg" />
+      <section className="relative isolate min-h-[36rem] w-full overflow-x-clip bg-[#F9F9F7] pb-24 pt-10 sm:min-h-[40rem] sm:pb-32 sm:pt-12 md:pb-36 md:pt-14 lg:min-h-[42rem] lg:pb-40 lg:pt-16">
+        {/* Collage anchored to same centered band as copy (max-w-7xl ≈ Container) */}
+        <div
+          className="pointer-events-none absolute inset-x-4 inset-y-8 overflow-visible sm:inset-x-6 lg:inset-x-8"
+          aria-hidden="true"
+        >
+          <div className="relative mx-auto h-full max-w-7xl">
+            {/* Top left — inner edge of hero band */}
+            <div className="absolute left-6 top-2 hidden h-24 w-[6.75rem] overflow-hidden rounded-[1.125rem] shadow-lg shadow-black/12 sm:left-8 sm:block sm:h-[5.75rem] md:top-4 md:h-28 md:w-32 lg:left-12 lg:top-6 lg:w-[8.75rem]">
+              <Image
+                src={africanBaobab}
+                alt=""
+                fill
+                sizes="132px"
+                className="object-cover"
+              />
             </div>
-          </div>
-          
-          {/* Top Right */}
-          <div className="absolute top-4 right-8 w-32 h-24 rounded-lg bg-[#E5E2DC] border-1.2 border-[#66462C]/20 shadow-lg opacity-80 hidden lg:block overflow-hidden">
-            <div className="relative w-full h-full">
-              <Image src={capetown} alt="Cape Town, South Africa" fill className="object-cover rounded-lg" />
+            {/* Top center — smaller, fixed to upper band so it sits above copy */}
+            <div className="absolute left-1/2 top-0 hidden h-28 w-32 max-w-[calc(100%-2rem)] -translate-x-1/2 overflow-hidden rounded-2xl shadow-md shadow-black/10 md:block md:h-[7.25rem] md:w-[8.25rem] lg:h-32 lg:w-36">
+              <Image
+                src={michaelSchofield}
+                alt=""
+                fill
+                sizes="144px"
+                className="object-cover"
+              />
             </div>
-          </div>
-          
-          {/* Left Side - Middle */}
-          <div className="absolute top-1/2 -translate-y-20 left-28 w-32 h-24 rounded-lg bg-[#E5E2DC] border-1.2 border-[#66462C]/20 shadow-lg opacity-70 hidden xl:block overflow-hidden">
-            <div className="relative w-full h-full">
-              <Image src={africanChildren} alt="African Children" fill className="object-cover rounded-lg" />
+            {/* Top right */}
+            <div className="absolute right-6 top-3 hidden h-24 w-[6.75rem] overflow-hidden rounded-[1.125rem] shadow-lg shadow-black/12 sm:right-8 sm:block sm:h-[6.25rem] md:top-5 md:h-28 md:w-32 lg:right-12 lg:top-7 lg:w-[8.75rem]">
+              <Image
+                src={capetown}
+                alt=""
+                fill
+                sizes="132px"
+                className="object-cover"
+              />
             </div>
-          </div>
-          
-          {/* Right Side - Middle */}
-          <div className="absolute top-1/2 -translate-y-1/2 right-0 w-32 h-24 rounded-lg bg-[#E5E2DC] border-1.2 border-[#66462C]/20 shadow-lg opacity-70 hidden xl:block overflow-hidden">
-            <div className="relative w-full h-full">
-              <Image src={leopardImage} alt="Leopard" fill className="object-cover rounded-lg" />
+            {/* Lower left — flanking the copy block */}
+            <div className="absolute bottom-[8%] left-5 hidden h-[7rem] w-[7.75rem] overflow-hidden rounded-[1.125rem] shadow-lg shadow-black/12 sm:left-8 sm:block md:bottom-[10%] lg:bottom-[12%] lg:left-12 lg:h-32 lg:w-36">
+              <Image
+                src={africanChildren}
+                alt=""
+                fill
+                sizes="148px"
+                className="object-cover"
+              />
             </div>
-          </div>
-          
-          {/* Bottom Left */}
-          <div className="absolute bottom-20 left-32 w-32 h-24 rounded-lg bg-[#E5E2DC] border-1.2 border-[#66462C]/20 shadow-lg opacity-75 hidden md:block overflow-hidden">
-            <div className="relative w-full h-full">
-              <Image src={africanSoccer} alt="African Soccer" fill className="object-cover rounded-lg" />
-            </div>
-          </div>
-          
-          {/* Bottom Right */}
-          <div className="absolute bottom-24 right-24 w-32 h-24 rounded-lg bg-[#E5E2DC] border-1.2 border-[#66462C]/20 shadow-lg opacity-75 hidden lg:block overflow-hidden">
-            <div className="relative w-full h-full">
-              <Image src={africanCelebration} alt="African Celebration" fill className="object-cover rounded-lg" />
-            </div>
-          </div>
-          
-          {/* Additional smaller decorative elements */}
-          <div className="absolute top-8 left-1/4 w-32 h-24 rounded-lg bg-[#E5E2DC] border-1.2 border-[#66462C]/20 shadow-md opacity-60 hidden lg:block overflow-hidden">
-            <div className="relative w-full h-full">
-              <Image src={michaelSchofield} alt="African Landscape" fill className="object-cover rounded-lg" />
-            </div>
-          </div>
-          
-          <div className="absolute top-32 right-45 w-32 h-24 rounded-lg bg-[#E5E2DC] border-1.2 border-[#66462C]/20 shadow-md opacity-60 hidden lg:block overflow-hidden">
-            <div className="relative w-full h-full">
-              <Image src={africanBaobab} alt="African Baobab" fill className="object-cover rounded-lg" />
+            {/* Lower right */}
+            <div className="absolute right-5 bottom-[6%] hidden h-[7rem] w-[7.75rem] overflow-hidden rounded-[1.125rem] shadow-lg shadow-black/12 sm:right-8 sm:block md:bottom-[8%] lg:bottom-[10%] lg:right-12 lg:h-32 lg:w-36">
+              <Image
+                src={africanCelebration}
+                alt=""
+                fill
+                sizes="148px"
+                className="object-cover"
+              />
             </div>
           </div>
         </div>
 
-        {/* Hero Content */}
-        <div className="relative z-10">
-          <h1 className="mx-auto max-w-4xl font-display text-3xl font-medium tracking-tight text-slate-900 sm:text-5xl md:text-6xl lg:text-7xl">
-            {t.hero.title}{' '}
-            <span className="relative whitespace-nowrap text-[#66462C]">
-              <svg
-                aria-hidden="true"
-                viewBox="0 0 418 42"
-                className="absolute top-2/3 left-0 h-[0.58em] w-full fill-[#AE8C6F]/70"
-                preserveAspectRatio="none"
-              >
-                <path d="M203.371.916c-26.013-2.078-76.686 1.963-124.73 9.946L67.3 12.749C35.421 18.062 18.2 21.766 6.004 25.934 1.244 27.561.828 27.778.874 28.61c.07 1.214.828 1.121 9.595-1.176 9.072-2.377 17.15-3.92 39.246-7.496C123.565 7.986 157.869 4.492 195.942 5.046c7.461.108 19.25 1.696 19.17 2.582-.107 1.183-7.874 4.31-25.75 10.366-21.992 7.45-35.43 12.534-36.701 13.884-2.173 2.308-.202 4.407 4.442 4.734 2.654.187 3.263.157 15.593-.78 35.401-2.686 57.944-3.488 88.365-3.143 46.327.526 75.721 2.23 130.788 7.584 19.787 1.924 20.814 1.98 24.557 1.332l.066-.011c1.201-.203 1.53-1.825.399-2.335-2.911-1.31-4.893-1.604-22.048-3.261-57.509-5.556-87.871-7.36-132.059-7.842-23.239-.254-33.617-.116-50.627.674-11.629.54-42.371 2.494-46.696 2.967-2.359.259 8.133-3.625 26.504-9.81 23.239-7.825 27.934-10.149 28.304-14.005.417-4.348-3.529-6-16.878-7.066Z" />
-              </svg>
-              <span className="relative">{t.hero.titleHighlight}</span>
-            </span>
-          </h1>
-          
-          <div className="mt-10 flex justify-center gap-x-6">
-            <Button href="/contribute" color="blue" className="bg-[#66462C] hover:bg-[#563B25] focus-visible:outline-[#66462C]">
-              {t.hero.downloadButton}
-            </Button>
-          </div>
-        </div>
-      </Container>
+        <Container className="relative w-full">
+          {/* Pad clears center tile (h ~7.25–8rem) + gap so subtitle never sits under the photo */}
+          <div className="relative z-10 mx-auto w-full max-w-3xl text-center md:max-w-4xl md:pt-[9.75rem] lg:pt-[10.75rem]">
+            <p className="text-xs font-semibold uppercase leading-relaxed tracking-[0.16em] text-[#8D6242] sm:text-sm">
+              {t.hero.tagline}
+            </p>
 
-      <div className="bg-[#F6F3EF] py-20 sm:py-32">
-        <Container>
-          <div className="mx-auto max-w-2xl text-center">
-            <h2 className="font-display text-3xl font-semibold tracking-tight text-slate-900 sm:text-4xl md:text-5xl">
-              {t.hero.missionTitle}
-            </h2>
-          </div>
-          <div className="mx-auto mt-16 grid max-w-2xl auto-rows-fr grid-cols-1 gap-8 sm:mt-20 lg:mx-0 lg:max-w-none lg:grid-cols-3">
-            {posts.map((post) => (
-              <article
-                key={post.id}
-                className="relative isolate flex flex-col justify-end overflow-hidden rounded-2xl bg-gray-900 px-6 pt-60 pb-6 sm:pt-40 lg:pt-60"
-              >
-                <Image
-                  alt=""
-                  src={post.imageUrl}
-                  fill
-                  className="absolute inset-0 -z-10 object-cover"
-                  unoptimized
-                />
-                <div className="absolute inset-0 -z-10 bg-gradient-to-t from-gray-900 via-gray-900/40" />
-                <div className="absolute inset-0 -z-10 rounded-2xl ring-1 ring-gray-900/10" />
+            <h1 className="font-hero mt-9 text-balance text-[2rem] font-medium leading-[1.2] tracking-tight text-[#2A1B14] sm:mt-10 sm:text-4xl sm:leading-[1.15] md:mt-12 md:text-5xl lg:mt-14 lg:text-6xl lg:leading-[1.1]">
+              {t.hero.titleLead}{' '}
+              <span className="relative inline-block">
+                <span className="relative z-[1]">{t.hero.titleAccent}</span>
+                <svg
+                  aria-hidden="true"
+                  viewBox="0 0 418 42"
+                  className={`pointer-events-none absolute top-full mt-2 h-[0.42em] w-full fill-[#8D6242]/50 sm:h-[0.48em] ${
+                    language === 'en'
+                      ? 'left-0 -translate-x-[0.2em] sm:-translate-x-[0.28em] md:-translate-x-[0.35em]'
+                      : 'left-0'
+                  }`}
+                  preserveAspectRatio="none"
+                >
+                  <path d="M203.371.916c-26.013-2.078-76.686 1.963-124.73 9.946L67.3 12.749C35.421 18.062 18.2 21.766 6.004 25.934 1.244 27.561.828 27.778.874 28.61c.07 1.214.828 1.121 9.595-1.176 9.072-2.377 17.15-3.92 39.246-7.496C123.565 7.986 157.869 4.492 195.942 5.046c7.461.108 19.25 1.696 19.17 2.582-.107 1.183-7.874 4.31-25.75 10.366-21.992 7.45-35.43 12.534-36.701 13.884-2.173 2.308-.202 4.407 4.442 4.734 2.654.187 3.263.157 15.593-.78 35.401-2.686 57.944-3.488 88.365-3.143 46.327.526 75.721 2.23 130.788 7.584 19.787 1.924 20.814 1.98 24.557 1.332l.066-.011c1.201-.203 1.53-1.825.399-2.335-2.911-1.31-4.893-1.604-22.048-3.261-57.509-5.556-87.871-7.36-132.059-7.842-23.239-.254-33.617-.116-50.627.674-11.629.54-42.371 2.494-46.696 2.967-2.359.259 8.133-3.625 26.504-9.81 23.239-7.825 27.934-10.149 28.304-14.005.417-4.348-3.529-6-16.878-7.066Z" />
+                </svg>
+              </span>
+            </h1>
 
-                <div className="flex flex-col gap-y-2">
-                  <h3 className="text-xl font-semibold text-white leading-snug">
-                    <Link href={post.href}>
-                      <span className="absolute inset-0" />
-                      {post.title}
-                    </Link>
-                  </h3>
-                  <p className="text-sm leading-6 text-gray-300">
-                    {post.description}
-                  </p>
-                </div>
-              </article>
-            ))}
+            <div className="mt-12 flex flex-col items-center justify-center gap-6 sm:mt-16 sm:flex-row sm:gap-10 lg:mt-[4.25rem]">
+              <Button
+                href="/explore"
+                color="blue"
+                className="rounded-[0.65rem] px-6 py-2.5 text-[0.9375rem] font-semibold shadow-sm"
+              >
+                {t.hero.downloadButton}
+              </Button>
+              <Button
+                href="/top_contributors"
+                variant="outline"
+                color="slate"
+                className="rounded-[0.65rem] px-6 py-2.5 text-[0.9375rem] font-semibold text-[#4A3428] ring-[#D4C9BE] hover:bg-[#F3F0EB] hover:text-[#2A1B14]"
+              >
+                {t.hero.topJournalistsButton}
+              </Button>
+            </div>
           </div>
         </Container>
-      </div>
+      </section>
+
+      <MissionSlider />
     </>
   )
 }

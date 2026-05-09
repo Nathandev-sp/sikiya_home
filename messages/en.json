@@ -2,15 +2,49 @@
   "header": {
     "home": "Home",
     "topJournalists": "Top journalists",
+    "explore": "Explore",
+    "about": "About",
     "joinSikiya": "Join sikiya",
     "learnMore": "Learn more"
   },
+  "languageSwitcher": {
+    "label": "Language",
+    "en": "English",
+    "fr": "French"
+  },
   "hero": {
-    "title": "News that inspire",
-    "titleHighlight": "Africa's conversations",
+    "tagline": "Built for Africa's next generation of journalism",
+    "titleLead": "News that inspire Africa's",
+    "titleAccent": "conversations",
     "subtitle": "A platform dedicated to news that inspire conversations on the political, economic, social, and cultural dimensions shaping the continent.",
     "downloadButton": "Download Sikiya",
+    "topJournalistsButton": "Our top journalists",
     "missionTitle": "Our Mission"
+  },
+  "mission": {
+    "previousSlide": "Previous slide",
+    "nextSlide": "Next slide",
+    "goToSlide": "Go to slide {n}",
+    "slides": [
+      {
+        "title": "Where Africa Speaks",
+        "body": "Vote, take a stance, and join structured discussions through dedicated lanes. Conversations are organized by topic and perspective, creating space for constructive dialogue where communities, journalists, and public voices can share and challenge ideas."
+      },
+      {
+        "title": "Beyond the Headlines",
+        "body": "Read perspectives from public figures, journalists, analysts, and academics through approved article commentary and discussions. Verified voices help share their perspectives on articles, shaping informed conversations around events across the continent."
+      },
+      {
+        "title": "Trust You Can Measure",
+        "body": "A transparent trust score and publisher verification system keeps journalism accountable. Publishers evaluate articles based on reporting quality, fact-checking practices, and editorial standards, giving readers clear insight into the credibility behind every source."
+      },
+      {
+        "title": "An Africa-Focused Network",
+        "body": "Sikiya is building an Africa-wide network of affiliated and freelance journalists delivering real-time, on-the-ground local perspectives, while verified public figures share their perspectives directly with communities across the continent.",
+        "ctaLabel": "Explore the Network",
+        "ctaHref": "/top_contributors"
+      }
+    ]
   },
   "heroPosts": {
   "empower": {
@@ -42,10 +76,6 @@
     }
   },
   "userFeatures": {
-    "content": {
-      "title": "Access content relevant to your country of interest",
-      "description": "Discover and engage with articles, stories, and videos tailored to your interests across Africa."
-    },
     "conversations": {
       "title": "Join meaningful conversations with fellow Africans",
       "description": "Connect with an active community discussing political, economic, social, and cultural topics that matter."
@@ -154,13 +184,123 @@
       }
     ]
   },
+  "aboutPage": {
+    "hero": {
+      "title": "Africa deserves better conversations.",
+      "subtitle": "Sikiya was built to create a more accountable, informed, and connected media ecosystem across Africa, where journalists, experts, and communities engage beyond the headlines."
+    },
+    "problemResponse": {
+      "problemTitle": "The Problem",
+      "problemItems": [
+        {
+          "title": "Biased national media can limit diverse perspectives",
+          "body": "Political and institutional interests often shape coverage, leaving many communities underrepresented."
+        },
+        {
+          "title": "Informal social networks accelerate misinformation",
+          "body": "News shared through WhatsApp, Facebook, X, and group chats can spread unverified information quickly."
+        },
+        {
+          "title": "Political headlines overshadow everyday progress",
+          "body": "Innovation, culture, business, and community achievements often receive limited attention."
+        },
+        {
+          "title": "Limited coverage leaves local communities unheard",
+          "body": "Many important stories and perspectives never reach major media platforms."
+        },
+        {
+          "title": "News needs more meaningful public discussion",
+          "body": "Communities should be able to debate, explain, and engage with important stories together."
+        }
+      ],
+      "responseTitle": "The Sikiya Response",
+      "responseIntro": "Sikiya combines verified journalism, structured discussions, trust metrics, regional perspectives, and expert insights into one unified platform.",
+      "responseItems": [
+        {
+          "title": "On-the-ground coverage brings local stories forward",
+          "body": "By supporting both freelance and affiliated journalists, Sikiya encourages real-time reporting on communities, innovation, business, culture, and everyday progress across Africa."
+        },
+        {
+          "title": "A wide network of journalists and public voices",
+          "body": "Sikiya welcomes affiliated and independent journalists, alongside public figures, podcasters, YouTubers, and experts who can support, challenge, and add context directly to articles."
+        },
+        {
+          "title": "Verification and trust scores promote accountability",
+          "body": "A transparent verification process and trust score system help readers identify credible journalists and track sources that repeatedly spread misinformation."
+        },
+        {
+          "title": "Structured discussions encourage public participation",
+          "body": "Dedicated discussion lanes allow communities to vote, share opinions, and take part in informed conversations around important issues."
+        }
+      ]
+    },
+    "builtForAfrica": {
+      "title": "Built for Africa",
+      "subtitle": "From Lagos to Nairobi, Cape Town to Kinshasa, Sikiya is building a platform shaped by the realities, languages, and perspectives of communities across Africa",
+      "comingSoon": "Coming soon",
+      "locations": [
+        { "city": "Lagos", "country": "Nigeria" },
+        { "city": "Nairobi", "country": "Kenya" },
+        { "city": "Cape Town", "country": "South Africa" },
+        { "city": "Kinshasa", "country": "DR Congo" },
+        { "city": "Accra", "country": "Ghana" },
+        { "city": "Cairo", "country": "Egypt" },
+        { "city": "Addis Ababa", "country": "Ethiopia" },
+        { "city": "Kigali", "country": "Rwanda" }
+      ]
+    }
+  },
   "footer": {
     "copyright": "Copyright © {year} Sikiya. All rights reserved."
   },
   "topContributors": {
     "title": "Top Journalists",
     "subtitle": "Meet the passionate journalists, writers, and content creators who are shaping the dialogue on Africa's future through their insightful articles and stories.",
-    "independentJournalist": "Independent Journalist"
+    "trustScore": "Trust Score",
+    "articlesLabel": "Articles",
+    "verifiedProfile": "Verified journalist",
+    "profiles": [
+      {
+        "name": "Amara Okafor",
+        "role": "Investigative Journalist",
+        "location": "Lagos, Nigeria",
+        "bio": "Award-winning reporter covering West African politics and economic development",
+        "tags": ["Politics", "Economy", "Governance"],
+        "trustScore": 94,
+        "articleCount": 127,
+        "profileImageUrl": ""
+      },
+      {
+        "name": "Kwame Mensah",
+        "role": "Photojournalist",
+        "location": "Accra, Ghana",
+        "bio": "Documenting untold stories through powerful visual narratives",
+        "tags": ["Visual Stories", "Culture", "Society"],
+        "trustScore": 91,
+        "articleCount": 89,
+        "profileImageUrl": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=400&h=400&q=80"
+      },
+      {
+        "name": "Zainab Hassan",
+        "role": "Data Journalist",
+        "location": "Nairobi, Kenya",
+        "bio": "Using data to uncover patterns in climate change and public health",
+        "tags": ["Data Analysis", "Climate", "Health"],
+        "trustScore": 97,
+        "articleCount": 156,
+        "profileImageUrl": "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=400&h=400&q=80"
+      },
+      {
+        "name": "Thabo Ndlovu",
+        "role": "Editor & Columnist",
+        "location": "Johannesburg, South Africa",
+        "bio": "Senior editor with 15 years covering social justice across Southern Africa",
+        "tags": ["Opinion", "Human Rights", "Justice"],
+        "trustScore": 96,
+        "articleCount": 203,
+        "profileImageUrl": "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=400&h=400&q=80"
+      }
+    ]
   },
   "contribute": {
     "title": "Start Contributing",
@@ -187,6 +327,52 @@
         "title": "Join Discussions",
         "description": "Engage in meaningful conversations, comment on articles, and connect with journalists and readers."
       }
+    }
+  },
+  "explore": {
+    "phonePlaceholder": "Replace with your screenshot",
+    "startContributing": {
+      "title": "Start Contributing",
+      "paragraph1": "Join the Sikiya community and start sharing your stories, articles, and insights about Africa.",
+      "paragraph2": "Download our mobile app to get started."
+    },
+    "forUsers": {
+      "title": "For Our Users",
+      "items": [
+        {
+          "title": "Personalized News Feed",
+          "description": "Get stories tailored to your interests and location across Africa."
+        },
+        {
+          "title": "Follow Trusted Journalists",
+          "description": "Follow your favorite journalists and view their trust scores."
+        },
+        {
+          "title": "Discussion Lanes",
+          "description": "Join structured conversations organized by topic and viewpoint."
+        },
+        {
+          "title": "Shape the Conversation",
+          "description": "Experts and public figures can comment directly on articles."
+        }
+      ]
+    },
+    "forJournalists": {
+      "title": "For Journalists",
+      "items": [
+        {
+          "title": "Publish Your Stories",
+          "description": "Submit articles with our intuitive mobile editor and reach readers across Africa."
+        },
+        {
+          "title": "Build Your Profile",
+          "description": "Showcase your work, verification status, and trust score to build credibility."
+        },
+        {
+          "title": "Track Your Impact",
+          "description": "Monitor readership, engagement, and community feedback on your journalism."
+        }
+      ]
     }
   }
 }

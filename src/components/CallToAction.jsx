@@ -1,12 +1,9 @@
 'use client'
 
-import Image from 'next/image'
-
 import { Button } from '@/components/Button'
 import { Container } from '@/components/Container'
 import { useLanguage } from '@/lib/LanguageContext'
 import { getTranslation } from '@/lib/translations'
-import backgroundImage from '@/images/background-call-to-action.jpg'
 
 export function CallToAction() {
   const { language } = useLanguage()
@@ -15,7 +12,7 @@ export function CallToAction() {
   return (
     <section
       id="get-started-today"
-      className="relative overflow-hidden bg-[#F6F3EF] py-32"
+      className="relative overflow-hidden bg-[#F9F9F7] py-32"
     >
       <Container className="relative">
         <div className="mx-auto max-w-lg text-center">
@@ -25,7 +22,7 @@ export function CallToAction() {
           <p className="mt-6 text-lg tracking-tight text-slate-600">
             {t.callToAction.subtitle}
           </p>
-          <Button href="/contribute" color="blue" className="mt-10 bg-[#66462C] hover:bg-[#563B25]">
+          <Button href="/explore" color="blue" className="mt-10 bg-[#66462C] hover:bg-[#563B25]">
             {t.callToAction.button}
           </Button>
         </div>

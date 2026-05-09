@@ -2,15 +2,49 @@
   "header": {
     "home": "Accueil",
     "topJournalists": "Top journalistes",
+    "explore": "Explorer",
+    "about": "À propos",
     "joinSikiya": "Rejoindre Sikiya",
     "learnMore": "En savoir plus"
   },
+  "languageSwitcher": {
+    "label": "Langue",
+    "en": "Anglais",
+    "fr": "Français"
+  },
   "hero": {
-    "title": "Des actualités",
-    "titleHighlight": " qui font parler l’Afrique",
+    "tagline": "Au service de la prochaine génération de journalistes africains",
+    "titleLead": "Des news qui inspirent les",
+    "titleAccent": "conversations en Afrique",
     "subtitle": "Une plateforme dédiée aux actualités qui inspirent les conversations sur les dimensions politiques, économiques, sociales et culturelles qui façonnent le continent.",
     "downloadButton": "Télécharger Sikiya",
+    "topJournalistsButton": "Top journalistes",
     "missionTitle": "Notre Mission"
+  },
+  "mission": {
+    "previousSlide": "Diapositive précédente",
+    "nextSlide": "Diapositive suivante",
+    "goToSlide": "Aller à la diapositive {n}",
+    "slides": [
+      {
+        "title": "Là où l’Afrique s’exprime",
+        "body": "Votez, prenez position et participez à des discussions structurées à travers des espaces dédiés. Les conversations sont organisées par sujet et par perspective afin de favoriser un dialogue constructif entre communautés, journalistes et voix publiques."
+      },
+      {
+        "title": "Au-delà des titres",
+        "body": "Découvrez les points de vue de personnalités publiques, journalistes, analystes et universitaires à travers des commentaires et discussions approuvés autour des articles. Des voix vérifiées enrichissent les échanges et apportent plus de contexte aux événements qui façonnent le continent."
+      },
+      {
+        "title": "Une confiance mesurable",
+        "body": "Un système transparent de score de confiance et de vérification des éditeurs renforce la responsabilité journalistique. Les articles sont évalués selon la qualité du reportage, les pratiques de vérification des faits et les standards éditoriaux."
+      },
+      {
+        "title": "Un réseau centré sur l’Afrique",
+        "body": "Sikiya construit un réseau africain de journalistes affiliés et indépendants offrant des perspectives locales et des reportages en temps réel, tandis que des personnalités publiques vérifiées partagent directement leurs points de vue avec les communautés du continent.",
+        "ctaLabel": "Découvrir le réseau",
+        "ctaHref": "/top_contributors"
+      }
+    ]
   },
   "heroPosts": {
   "empower": {
@@ -43,10 +77,6 @@
     }
   },
   "userFeatures": {
-    "content": {
-      "title": "Accédez à du contenu pertinent pour votre pays d'intérêt",
-      "description": "Découvrez et engagez-vous avec des articles, des histoires et des vidéos adaptés à vos centres d’intérêt à travers l'Afrique."
-    },
     "conversations": {
       "title": "Participez à des conversations constructives avec d’autres Africains",
       "description": "Connectez-vous avec une communauté active discutant de sujets politiques, économiques, sociaux et culturels importants."
@@ -155,13 +185,123 @@
       }
     ]
   },
+  "aboutPage": {
+    "hero": {
+      "title": "L'Afrique mérite de meilleures conversations.",
+      "subtitle": "Sikiya a été conçue pour construire un écosystème médiatique africain plus responsable, plus informé et plus connecté, où journalistes, experts et communautés peuvent échanger au-delà des gros titres."
+    },
+    "problemResponse": {
+      "problemTitle": "Le problème",
+      "problemItems": [
+        {
+          "title": "Les médias nationaux biaisés peuvent limiter les perspectives diverses",
+          "body": "Les intérêts politiques et institutionnels façonnent souvent la couverture, laissant de nombreuses communautés sous-représentées."
+        },
+        {
+          "title": "Les réseaux sociaux informels accélèrent la désinformation",
+          "body": "Les actualités partagées via WhatsApp, Facebook, X et les discussions de groupe peuvent diffuser rapidement des informations non vérifiées."
+        },
+        {
+          "title": "Les titres politiques éclipsent le progrès du quotidien",
+          "body": "L'innovation, la culture, l'économie et les réussites communautaires reçoivent souvent peu d'attention."
+        },
+        {
+          "title": "Une couverture limitée laisse les communautés locales sans voix",
+          "body": "De nombreuses histoires et perspectives importantes n'atteignent jamais les grandes plateformes médiatiques."
+        },
+        {
+          "title": "L'actualité a besoin d'un débat public plus significatif",
+          "body": "Les communautés devraient pouvoir débattre, expliquer et s'engager ensemble sur les sujets importants."
+        }
+      ],
+      "responseTitle": "La réponse Sikiya",
+      "responseIntro": "Sikiya réunit journalisme vérifié, discussions structurées, indicateurs de confiance, perspectives régionales et analyses d'experts au sein d'une même plateforme.",
+      "responseItems": [
+        {
+          "title": "Une couverture de terrain met en avant les histoires locales",
+          "body": "En soutenant les journalistes indépendants et affiliés, Sikiya encourage des reportages en temps réel sur les communautés, l’innovation, l’économie, la culture et le progrès quotidien à travers l’Afrique."
+        },
+        {
+          "title": "Un vaste réseau de journalistes et de voix publiques",
+          "body": "Sikiya accueille des journalistes affiliés et indépendants, ainsi que des personnalités publiques, podcasteurs, YouTubeurs et experts capables d’apporter du contexte, de soutenir ou de remettre en question les articles."
+        },
+        {
+          "title": "La vérification et les scores de confiance renforcent la responsabilité",
+          "body": "Un système transparent de vérification et de score de confiance aide les lecteurs à identifier les journalistes crédibles et à repérer les sources qui diffusent régulièrement de la désinformation."
+        },
+        {
+          "title": "Des discussions structurées favorisent la participation publique",
+          "body": "Des espaces de discussion dédiés permettent aux communautés de voter, de partager leurs opinions et de participer à des conversations constructives sur des sujets importants."
+        }
+      ]
+    },
+    "builtForAfrica": {
+      "title": "Créé pour l’Afrique",
+      "subtitle": "De Lagos à Nairobi, du Cap à Kinshasa, Sikiya construit une plateforme forgée par les réalités, les langues et les perspectives des communautés à travers l'Afrique",
+      "comingSoon": "Bientôt",
+      "locations": [
+        { "city": "Lagos", "country": "Nigeria" },
+        { "city": "Nairobi", "country": "Kenya" },
+        { "city": "Le Cap", "country": "Afrique du Sud" },
+        { "city": "Kinshasa", "country": "RDC" },
+        { "city": "Accra", "country": "Ghana" },
+        { "city": "Le Caire", "country": "Égypte" },
+        { "city": "Addis-Abeba", "country": "Éthiopie" },
+        { "city": "Kigali", "country": "Rwanda" }
+      ]
+    }
+  },
   "footer": {
     "copyright": "Droits d'auteur © {year} Sikiya. Tous droits réservés."
   },
   "topContributors": {
-    "title": "Top Journalistes",
-    "subtitle": "Rencontrez les journalistes, écrivains et créateurs de contenu passionnés qui façonnent le dialogue sur l'avenir de l'Afrique grâce à leurs articles et histoires.",
-    "independentJournalist": "Journaliste Indépendant"
+    "title": "Top journalistes",
+    "subtitle": "Découvrez les journalistes, auteurs et créateurs de contenu passionnés qui façonnent le dialogue sur l'avenir de l'Afrique à travers leurs reportages et leurs histoires.",
+    "trustScore": "Score de confiance",
+    "articlesLabel": "Articles",
+    "verifiedProfile": "Journaliste vérifié",
+    "profiles": [
+      {
+        "name": "Amara Okafor",
+        "role": "Journaliste d'investigation",
+        "location": "Lagos, Nigeria",
+        "bio": "Récompensée pour ses enquêtes sur la politique et le développement économique en Afrique de l'Ouest",
+        "tags": ["Politique", "Économie", "Gouvernance"],
+        "trustScore": 94,
+        "articleCount": 127,
+        "profileImageUrl": ""
+      },
+      {
+        "name": "Kwame Mensah",
+        "role": "Photojournaliste",
+        "location": "Accra, Ghana",
+        "bio": "Documentation de récits méconnus à travers des narratives visuelles puissantes",
+        "tags": ["Récits visuels", "Culture", "Société"],
+        "trustScore": 91,
+        "articleCount": 89,
+        "profileImageUrl": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=400&h=400&q=80"
+      },
+      {
+        "name": "Zainab Hassan",
+        "role": "Journaliste data",
+        "location": "Nairobi, Kenya",
+        "bio": "Analyse des données pour révéler des tendances en climat et en santé publique",
+        "tags": ["Analyse de données", "Climat", "Santé"],
+        "trustScore": 97,
+        "articleCount": 156,
+        "profileImageUrl": "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=400&h=400&q=80"
+      },
+      {
+        "name": "Thabo Ndlovu",
+        "role": "Rédacteur & chroniqueur",
+        "location": "Johannesburg, Afrique du Sud",
+        "bio": "Rédacteur senior avec 15 ans d'expérience sur la justice sociale en Afrique australe",
+        "tags": ["Opinion", "Droits humains", "Justice"],
+        "trustScore": 96,
+        "articleCount": 203,
+        "profileImageUrl": "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=400&h=400&q=80"
+      }
+    ]
   },
   "contribute": {
     "title": "Commencez à Contribuer",
@@ -188,6 +328,52 @@
         "title": "Rejoindre les Discussions",
         "description": "Participez à des conversations constructives, commentez les articles et connectez-vous avec les journalistes et les lecteurs."
       }
+    }
+  },
+  "explore": {
+    "phonePlaceholder": "Remplacez par votre capture d’écran",
+    "startContributing": {
+      "title": "Commencez à contribuer",
+      "paragraph1": "Rejoignez la communauté Sikiya et partagez vos histoires, articles et analyses sur l’Afrique.",
+      "paragraph2": "Téléchargez notre application mobile pour commencer."
+    },
+    "forUsers": {
+      "title": "Pour nos lecteurs",
+      "items": [
+        {
+          "title": "Fil d’actualité personnalisé",
+          "description": "Recevez des articles adaptés à vos intérêts et à votre région en Afrique."
+        },
+        {
+          "title": "Suivez des journalistes de confiance",
+          "description": "Suivez vos journalistes préférés et consultez leurs scores de confiance."
+        },
+        {
+          "title": "Espaces de discussion",
+          "description": "Participez à des discussions structurées organisées par sujet et point de vue."
+        },
+        {
+          "title": "Façonnez la conversation",
+          "description": "Des experts et personnalités publiques peuvent commenter directement les articles."
+        }
+      ]
+    },
+    "forJournalists": {
+      "title": "Pour les journalistes",
+      "items": [
+        {
+          "title": "Publiez vos reportages",
+          "description": "Rédigez depuis l’éditeur mobile et touchez des lecteurs partout en Afrique."
+        },
+        {
+          "title": "Construisez votre profil",
+          "description": "Mettez en avant votre travail, votre statut vérifié et votre score de confiance."
+        },
+        {
+          "title": "Mesurez votre impact",
+          "description": "Suivez audience, engagement et retours de la communauté sur vos articles."
+        }
+      ]
     }
   }
 }

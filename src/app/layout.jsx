@@ -1,4 +1,4 @@
-import { Inter, Lexend } from 'next/font/google'
+import { Inter, Lexend, Playfair_Display } from 'next/font/google'
 import clsx from 'clsx'
 
 import '@/styles/tailwind.css'
@@ -25,6 +25,12 @@ const lexend = Lexend({
   variable: '--font-lexend',
 })
 
+const playfair = Playfair_Display({
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-playfair',
+})
+
 export default function RootLayout({ children }) {
   return (
     <html
@@ -33,6 +39,7 @@ export default function RootLayout({ children }) {
         'h-full scroll-smooth bg-white antialiased',
         inter.variable,
         lexend.variable,
+        playfair.variable,
       )}
     >
       <body className="flex h-full flex-col">

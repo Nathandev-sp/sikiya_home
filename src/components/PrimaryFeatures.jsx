@@ -29,11 +29,6 @@ export function PrimaryFeatures() {
 
   const userFeatures = [
     {
-      title: t.primaryFeatures.userFeatures.content.title,
-      description: t.primaryFeatures.userFeatures.content.description,
-      image: getImageUrl('web/features/feature1.png'),
-    },
-    {
       title: t.primaryFeatures.userFeatures.conversations.title,
       description: t.primaryFeatures.userFeatures.conversations.description,
       image: getImageUrl('web/features/feature2.png'),
