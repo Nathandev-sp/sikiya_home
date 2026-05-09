@@ -1,5 +1,7 @@
 'use client'
 
+import Link from 'next/link'
+
 import { Container } from '@/components/Container'
 import { Header } from '@/components/Header'
 import { Footer } from '@/components/Footer'
@@ -26,10 +28,8 @@ export default function ContributePage() {
 
           <div className="mt-16 flex flex-col items-center justify-center gap-8 sm:flex-row sm:gap-12">
             {/* App Store Button */}
-            <a
-              href="https://apps.apple.com/app/sikiya"
-              target="_blank"
-              rel="noopener noreferrer"
+            <Link
+              href="/app-launch"
               className="group inline-flex items-center justify-center transition-transform hover:scale-105 w-auto"
             >
               <div className="flex flex-col items-center gap-3 rounded-2xl bg-slate-900 p-4 sm:p-6 shadow-xl ring-1 ring-slate-900/5 hover:bg-slate-800 w-40 sm:w-48">
@@ -46,13 +46,11 @@ export default function ContributePage() {
                   <div className="text-lg sm:text-xl font-semibold text-white">{t.contribute.appStore.name}</div>
                 </div>
               </div>
-            </a>
+            </Link>
 
             {/* Google Play Store Button */}
-            <a
-              href="https://play.google.com/store/apps/details?id=com.sikiya"
-              target="_blank"
-              rel="noopener noreferrer"
+            <Link
+              href="/app-launch"
               className="group inline-flex items-center justify-center transition-transform hover:scale-105 w-auto"
             >
               <div className="flex flex-col items-center gap-3 rounded-2xl bg-slate-900 p-4 sm:p-6 shadow-xl ring-1 ring-slate-900/5 hover:bg-slate-800 w-40 sm:w-48">
@@ -69,7 +67,7 @@ export default function ContributePage() {
                   <div className="text-lg sm:text-xl font-semibold text-white">{t.contribute.googlePlay.name}</div>
                 </div>
               </div>
-            </a>
+            </Link>
           </div>
 
           <div className="mt-16 rounded-2xl bg-[#F6F3EF] p-8 text-center">

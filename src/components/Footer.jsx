@@ -23,10 +23,10 @@ export function Footer() {
         <div className="flex flex-col items-center border-t border-slate-300/20 py-10 sm:flex-row-reverse sm:justify-between">
           <div className="flex flex-col items-center gap-4 sm:flex-row sm:gap-6">
             <a
-              href="mailto:contact@sikiya.com"
+              href="mailto:contact@sikiya.org"
               className="text-sm text-slate-700 hover:text-[#66462C] transition-colors"
             >
-              contact@sikiya.com
+              contact@sikiya.org
             </a>
             <Link
               href="https://instagram.com/sikiya"

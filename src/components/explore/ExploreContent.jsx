@@ -1,10 +1,28 @@
 'use client'
 
+import Link from 'next/link'
+
 import { Container } from '@/components/Container'
 import { useLanguage } from '@/lib/LanguageContext'
 import { getTranslation } from '@/lib/translations'
 
 import { PhoneMockupPlaceholder } from '@/components/explore/PhoneMockupPlaceholder'
+import { JournalistMonetizationSection } from '@/components/explore/JournalistMonetizationSection'
+
+/** Order matches `t.explore.forUsers.items` (4 cards). Reorder to swap screenshots. */
+const EXPLORE_USER_SCREENSHOTS = [
+  '/Screenshots/HomeScreenSH.png',
+  '/Screenshots/AuthorScreenSH.png',
+  '/Screenshots/DiscussionLaneSH.png',
+  '/Screenshots/ExpertSH.png',
+]
+
+/** Order matches `t.explore.forJournalists.items` (3 cards). */
+const EXPLORE_JOURNALIST_SCREENSHOTS = [
+  '/Screenshots/PublishSH.png',
+  '/Screenshots/JournalistSH.png',
+  '/Screenshots/UserProfileSH.png',
+]
 
 function StoreButtons() {
   const { language } = useLanguage()
@@ -12,10 +30,8 @@ function StoreButtons() {
 
   return (
     <div className="mt-12 flex flex-col items-center justify-center gap-4 sm:mt-14 sm:flex-row sm:gap-6">
-      <a
-        href="https://apps.apple.com/app/sikiya"
-        target="_blank"
-        rel="noopener noreferrer"
+      <Link
+        href="/app-launch"
         className="group flex w-full max-w-[15rem] items-center gap-3 rounded-xl bg-[#2A241C] px-5 py-3.5 text-white shadow-lg shadow-black/15 ring-1 ring-black/10 transition hover:bg-[#1f1812] sm:w-auto"
       >
         <svg
@@ -34,12 +50,10 @@ function StoreButtons() {
             {t.contribute.appStore.name}
           </div>
         </div>
-      </a>
+      </Link>
 
-      <a
-        href="https://play.google.com/store/apps/details?id=com.sikiya"
-        target="_blank"
-        rel="noopener noreferrer"
+      <Link
+        href="/app-launch"
         className="group flex w-full max-w-[15rem] items-center gap-3 rounded-xl bg-[#2A241C] px-5 py-3.5 text-white shadow-lg shadow-black/15 ring-1 ring-black/10 transition hover:bg-[#1f1812] sm:w-auto"
       >
         <svg
@@ -58,7 +72,7 @@ function StoreButtons() {
             {t.contribute.googlePlay.name}
           </div>
         </div>
-      </a>
+      </Link>
     </div>
   )
 }
@@ -106,8 +120,8 @@ export function ExploreContent() {
   const { language } = useLanguage()
   const t = getTranslation(language)
 
-  const userScreens = undefined
-  const journalistScreens = undefined
+  const userScreens = EXPLORE_USER_SCREENSHOTS
+  const journalistScreens = EXPLORE_JOURNALIST_SCREENSHOTS
 
   return (
     <div className="text-[#2A241C]">
@@ -151,6 +165,8 @@ export function ExploreContent() {
           />
         </Container>
       </section>
+
+      <JournalistMonetizationSection t={t} />
     </div>
   )
 }

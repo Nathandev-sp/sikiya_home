@@ -9,38 +9,34 @@ import { Container } from '@/components/Container'
 import { useLanguage } from '@/lib/LanguageContext'
 import { getTranslation } from '@/lib/translations'
 
-import africanCelebration from '@/assets/Hero Images/African celebration.jpg'
-import capetown from '@/assets/Hero Images/Capetown south africa.jpg'
-
-const PODCAST_IMG =
-  'https://images.unsplash.com/photo-1590602847861-f357a9332bbc?auto=format&fit=crop&w=1200&q=80'
-const TRUST_IMG =
-  'https://images.unsplash.com/photo-1504711434969-e33886168f5c?auto=format&fit=crop&w=1200&q=80'
-
+/**
+ * Mission slides use four wide images from `public/Images` (paired with `mission.slides` in order).
+ * 1 Where Africa Speaks → discussion | 2 Beyond the Headlines | 3 Trust | 4 Africa-focused network
+ */
 const SLIDE_VISUAL = [
   {
-    image: africanCelebration,
+    image: '/Images/Where_discussion_starts.jpg',
     alt: '',
     imageRight: false,
     variant: 'cream',
     iconSrc: '/icons/mission/conversation.svg',
   },
   {
-    image: PODCAST_IMG,
+    image: '/Images/Beyond_the_headlines.jpg',
     alt: '',
     imageRight: true,
     variant: 'white',
     iconSrc: '/icons/mission/loudspeaker.svg',
   },
   {
-    image: TRUST_IMG,
+    image: '/Images/Accountability.jpg',
     alt: '',
     imageRight: true,
     variant: 'white',
     icon: 'shield',
   },
   {
-    image: capetown,
+    image: '/Images/African_Continent.jpg',
     alt: '',
     imageRight: false,
     variant: 'cream',

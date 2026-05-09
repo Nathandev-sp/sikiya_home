@@ -255,7 +255,8 @@
   },
   "topContributors": {
     "title": "Top Journalists",
-    "subtitle": "Meet the passionate journalists, writers, and content creators who are shaping the dialogue on Africa's future through their insightful articles and stories.",
+    "subtitle": "We're building a network of trusted journalists and public voices across Africa.",
+    "recruitmentMessage": "Featured journalists will appear here soon.",
     "trustScore": "Trust Score",
     "articlesLabel": "Articles",
     "verifiedProfile": "Verified journalist",
@@ -361,19 +362,73 @@
       "title": "For Journalists",
       "items": [
         {
-          "title": "Publish Your Stories",
-          "description": "Submit articles with our intuitive mobile editor and reach readers across Africa."
+          "title": "Publish Stories Close to You",
+          "description": "Cover both local and international stories directly on Sikiya."
         },
         {
-          "title": "Build Your Profile",
-          "description": "Showcase your work, verification status, and trust score to build credibility."
+          "title": "Expand Your Reach",
+          "description": "Reach readers across Africa and diaspora communities."
         },
         {
-          "title": "Track Your Impact",
-          "description": "Monitor readership, engagement, and community feedback on your journalism."
+          "title": "Build Trusted Credibility",
+          "description": "Grow your profile through verification, trust scores, and engagement."
         }
       ]
+    },
+    "journalistMonetization": {
+      "mainTitle": "Journalists Earn From Stories Readers Trust",
+      "monetization": {
+        "title": "How You Earn",
+        "intro": "Once you qualify, payouts reflect how your reporting performs on Sikiya:",
+        "items": {
+          "articles": {
+            "title": "Articles Published",
+            "hint": "Consistent publishing increases earnings."
+          },
+          "views": {
+            "title": "Views & Reach",
+            "hint": "Readers and watch time across your articles and video."
+          },
+          "engagement": {
+            "title": "Community Engagement",
+            "hint": "Conversation and dialogue around your work."
+          }
+        }
+      },
+      "trustScore": {
+        "title": "Trust Score Shapes Your Rate",
+        "body": "Higher trust unlocks better earning potential. Credibility isn’t decoration, it is built into how you’re rewarded.",
+        "visualLabel": "Trust signal",
+        "visualValue": "Strong"
+      },
+      "paidBetter": {
+        "title": "Grow Your Earnings",
+        "columns": {
+          "consistent": {
+            "title": "Publish Consistently",
+            "description": "Regular reporting increases visibility."
+          },
+          "buildTrust": {
+            "title": "Build Trust",
+            "description": "Accurate journalism improves your trust score."
+          },
+          "engageAudience": {
+            "title": "Engage Your Audience",
+            "description": "Strong community interaction boosts reach."
+          }
+        }
+      }
     }
+  },
+  "appLaunch": {
+    "title": "Hard launch is on the way",
+    "message": "The Sikiya app will be available on the App Store from July 1st. Stay tuned.",
+    "days": "Days",
+    "hours": "Hours",
+    "minutes": "Minutes",
+    "seconds": "Seconds",
+    "live": "Launch day — check the App Store for Sikiya.",
+    "back": "Back to home"
   }
 }
 

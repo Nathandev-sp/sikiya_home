@@ -7,11 +7,14 @@ import { MissionSlider } from '@/components/MissionSlider'
 import { useLanguage } from '@/lib/LanguageContext'
 import { getTranslation } from '@/lib/translations'
 
-import africanBaobab from '@/assets/Hero Images/African Baobab.jpg'
-import africanCelebration from '@/assets/Hero Images/African celebration.jpg'
-import africanChildren from '@/assets/Hero Images/African Children.jpg'
-import capetown from '@/assets/Hero Images/Capetown south africa.jpg'
-import michaelSchofield from '@/assets/Hero Images/michael-schofield-IhuzPxyBunQ-unsplash.jpg'
+/** Five small collage tiles around the headline (order: top-left → top-center → top-right → bottom-left → bottom-right). */
+const HERO_COLLAGE = [
+  { src: '/Images/Okapi_image.jpg', sizes: '132px' },
+  { src: '/Images/Gold_mines.jpg', sizes: '144px', priority: true },
+  { src: '/Images/capetown.jpg', sizes: '132px' },
+  { src: '/Images/African_business.jpg', sizes: '148px' },
+  { src: '/Images/African_celebration.jpg', sizes: '148px' },
+]
 
 export function Hero() {
   const { language } = useLanguage()
@@ -29,50 +32,51 @@ export function Hero() {
             {/* Top left — inner edge of hero band */}
             <div className="absolute left-6 top-2 hidden h-24 w-[6.75rem] overflow-hidden rounded-[1.125rem] shadow-lg shadow-black/12 sm:left-8 sm:block sm:h-[5.75rem] md:top-4 md:h-28 md:w-32 lg:left-12 lg:top-6 lg:w-[8.75rem]">
               <Image
-                src={africanBaobab}
+                src={HERO_COLLAGE[0].src}
                 alt=""
                 fill
-                sizes="132px"
+                sizes={HERO_COLLAGE[0].sizes}
                 className="object-cover"
               />
             </div>
-            {/* Top center — smaller, fixed to upper band so it sits above copy */}
-            <div className="absolute left-1/2 top-0 hidden h-28 w-32 max-w-[calc(100%-2rem)] -translate-x-1/2 overflow-hidden rounded-2xl shadow-md shadow-black/10 md:block md:h-[7.25rem] md:w-[8.25rem] lg:h-32 lg:w-36">
+            {/* Top center — Gold mines (largest tile); visible from sm so it isn’t missing on tablet */}
+            <div className="absolute left-1/2 top-0 hidden h-28 w-32 max-w-[calc(100%-2rem)] -translate-x-1/2 overflow-hidden rounded-2xl shadow-md shadow-black/10 sm:block sm:h-[7.25rem] sm:w-[8.25rem] lg:h-32 lg:w-36">
               <Image
-                src={michaelSchofield}
+                src={HERO_COLLAGE[1].src}
                 alt=""
                 fill
-                sizes="144px"
+                priority={HERO_COLLAGE[1].priority === true}
+                sizes={HERO_COLLAGE[1].sizes}
                 className="object-cover"
               />
             </div>
             {/* Top right */}
             <div className="absolute right-6 top-3 hidden h-24 w-[6.75rem] overflow-hidden rounded-[1.125rem] shadow-lg shadow-black/12 sm:right-8 sm:block sm:h-[6.25rem] md:top-5 md:h-28 md:w-32 lg:right-12 lg:top-7 lg:w-[8.75rem]">
               <Image
-                src={capetown}
+                src={HERO_COLLAGE[2].src}
                 alt=""
                 fill
-                sizes="132px"
+                sizes={HERO_COLLAGE[2].sizes}
                 className="object-cover"
               />
             </div>
             {/* Lower left — flanking the copy block */}
             <div className="absolute bottom-[8%] left-5 hidden h-[7rem] w-[7.75rem] overflow-hidden rounded-[1.125rem] shadow-lg shadow-black/12 sm:left-8 sm:block md:bottom-[10%] lg:bottom-[12%] lg:left-12 lg:h-32 lg:w-36">
               <Image
-                src={africanChildren}
+                src={HERO_COLLAGE[3].src}
                 alt=""
                 fill
-                sizes="148px"
+                sizes={HERO_COLLAGE[3].sizes}
                 className="object-cover"
               />
             </div>
             {/* Lower right */}
             <div className="absolute right-5 bottom-[6%] hidden h-[7rem] w-[7.75rem] overflow-hidden rounded-[1.125rem] shadow-lg shadow-black/12 sm:right-8 sm:block md:bottom-[8%] lg:bottom-[10%] lg:right-12 lg:h-32 lg:w-36">
               <Image
-                src={africanCelebration}
+                src={HERO_COLLAGE[4].src}
                 alt=""
                 fill
-                sizes="148px"
+                sizes={HERO_COLLAGE[4].sizes}
                 className="object-cover"
               />
             </div>

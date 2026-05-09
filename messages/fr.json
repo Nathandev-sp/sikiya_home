@@ -256,7 +256,8 @@
   },
   "topContributors": {
     "title": "Top journalistes",
-    "subtitle": "Découvrez les journalistes, auteurs et créateurs de contenu passionnés qui façonnent le dialogue sur l'avenir de l'Afrique à travers leurs reportages et leurs histoires.",
+    "subtitle": "Nous construisons un réseau de journalistes crédibles et de voix publiques à travers l'Afrique.",
+    "recruitmentMessage": "Les journalistes mis en avant apparaîtront bientôt ici.",
     "trustScore": "Score de confiance",
     "articlesLabel": "Articles",
     "verifiedProfile": "Journaliste vérifié",
@@ -342,7 +343,7 @@
       "items": [
         {
           "title": "Fil d’actualité personnalisé",
-          "description": "Recevez des articles adaptés à vos intérêts et à votre région en Afrique."
+          "description": "Recevez un fil d’actualité personnalisé selon vos intérêts, votre région et les sujets qui vous concernent."
         },
         {
           "title": "Suivez des journalistes de confiance",
@@ -362,19 +363,73 @@
       "title": "Pour les journalistes",
       "items": [
         {
-          "title": "Publiez vos reportages",
-          "description": "Rédigez depuis l’éditeur mobile et touchez des lecteurs partout en Afrique."
+          "title": "Publiez des histoires proches de vous",
+          "description": "Couvrez des sujets locaux et internationaux directement sur la plateforme Sikiya."
         },
         {
-          "title": "Construisez votre profil",
-          "description": "Mettez en avant votre travail, votre statut vérifié et votre score de confiance."
+          "title": "Élargissez votre portée",
+          "description": "Touchez des lecteurs à travers l’Afrique et les communautés de la diaspora."
         },
         {
-          "title": "Mesurez votre impact",
-          "description": "Suivez audience, engagement et retours de la communauté sur vos articles."
+          "title": "Construisez votre crédibilité",
+          "description": "Développez votre profil avec la vérification, scores de confiance et à l’engagement."
         }
       ]
-    }
+    },
+      "journalistMonetization": {
+        "mainTitle": "Les journalistes gagnent grâce aux histoires auxquelles les lecteurs font confiance",
+        "monetization": {
+          "title": "Comment vous gagnez de l’argent",
+          "intro": "Une fois éligible, votre rémunération dépend des performances de vos reportages sur Sikiya :",
+          "items": {
+            "articles": {
+              "title": "Articles publiés",
+              "hint": "Publier régulièrement augmente vos revenus."
+            },
+            "views": {
+              "title": "Vues et portée",
+              "hint": "Lecteurs et temps de visionnage sur vos articles et vidéos."
+            },
+            "engagement": {
+              "title": "Engagement de la communauté",
+              "hint": "Conversations et échanges autour de votre travail."
+            }
+          }
+        },
+        "trustScore": {
+          "title": "Le score de confiance influence vos revenus",
+          "body": "Un score de confiance élevé augmente votre potentiel de revenus. La crédibilité ne se limite pas à une image, elle fait partie de votre rémunération.",
+          "visualLabel": "Signal de confiance",
+          "visualValue": "Élevé"
+        },
+        "paidBetter": {
+          "title": "Augmentez vos revenus",
+          "columns": {
+            "consistent": {
+              "title": "Publiez régulièrement",
+              "description": "Des reportages réguliers augmentent votre visibilité."
+            },
+            "buildTrust": {
+              "title": "Construisez la confiance",
+              "description": "Un journalisme fiable améliore votre score de confiance."
+            },
+            "engageAudience": {
+              "title": "Engagez votre audience",
+              "description": "Une forte interaction avec la communauté augmente votre portée."
+            }
+          }
+        }
+      }
+  },
+  "appLaunch": {
+    "title": "Le grand lancement approche",
+    "message": "L’application Sikiya sera disponible sur l’App Store à partir du 1er juillet. Restez à l’écoute.",
+    "days": "Jours",
+    "hours": "Heures",
+    "minutes": "Minutes",
+    "seconds": "Secondes",
+    "live": "Jour J — consultez l’App Store pour Sikiya.",
+    "back": "Retour à l’accueil"
   }
 }
 
