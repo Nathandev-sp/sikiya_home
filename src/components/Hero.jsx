@@ -4,6 +4,7 @@ import Image from 'next/image'
 import { Button } from '@/components/Button'
 import { Container } from '@/components/Container'
 import { MissionSlider } from '@/components/MissionSlider'
+import { PopularStoriesSlider } from '@/components/PopularStoriesSlider'
 import { useLanguage } from '@/lib/LanguageContext'
 import { getTranslation } from '@/lib/translations'
 
@@ -85,12 +86,12 @@ export function Hero() {
 
         <Container className="relative w-full">
           {/* Pad clears center tile (h ~7.25–8rem) + gap so subtitle never sits under the photo */}
-          <div className="relative z-10 mx-auto w-full max-w-3xl text-center md:max-w-4xl md:pt-[9.75rem] lg:pt-[10.75rem]">
-            <p className="text-xs font-semibold uppercase leading-relaxed tracking-[0.16em] text-[#8D6242] sm:text-sm">
+          <div className="relative z-10 mx-auto w-full max-w-3xl text-center md:max-w-4xl md:pt-[9.25rem] lg:pt-[10.25rem]">
+            <p className="text-[0.625rem] font-semibold uppercase leading-snug tracking-[0.14em] text-[#8D6242] sm:text-[0.6875rem]">
               {t.hero.tagline}
             </p>
 
-            <h1 className="font-hero mt-9 text-balance text-[2rem] font-medium leading-[1.2] tracking-tight text-[#2A1B14] sm:mt-10 sm:text-4xl sm:leading-[1.15] md:mt-12 md:text-5xl lg:mt-14 lg:text-6xl lg:leading-[1.1]">
+            <h1 className="font-hero mt-4 text-balance text-[2rem] font-medium leading-[1.2] tracking-tight text-[#2A1B14] sm:mt-5 sm:text-4xl sm:leading-[1.15] md:mt-6 md:text-5xl lg:mt-7 lg:text-6xl lg:leading-[1.1]">
               {t.hero.titleLead}{' '}
               <span className="relative inline-block">
                 <span className="relative z-[1]">{t.hero.titleAccent}</span>
@@ -130,6 +131,7 @@ export function Hero() {
         </Container>
       </section>
 
+      <PopularStoriesSlider />
       <MissionSlider />
     </>
   )

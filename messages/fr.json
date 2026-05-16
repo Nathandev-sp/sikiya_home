@@ -46,6 +46,62 @@
       }
     ]
   },
+  "popularStories": {
+    "ariaLabel": "Articles populaires sur Sikiya",
+    "title": "Populaire sur Sikiya",
+    "subtitle": "Découvrez les articles les plus lus qui façonnent les conversations en Afrique.",
+    "viewsCount": "{count} lectures",
+    "minRead": "{minutes} min de lecture",
+    "like": "Aimer l'article",
+    "share": "Partager l'article",
+    "previous": "Articles précédents",
+    "next": "Articles suivants",
+    "categories": {
+      "education": "Éducation",
+      "society": "Société",
+      "economy": "Économie",
+      "politics": "Politique",
+      "environment": "Environnement"
+    },
+    "stories": [
+      {
+        "title": "La réforme de l'éducation transforme le système scolaire ghanéen",
+        "excerpt": "De nouvelles politiques élargissent l'accès à une éducation de qualité dans les zones rurales, avec des résultats encourageants sur l'alphabétisation et la rétention des enseignants.",
+        "journalist": "Ama Osei",
+        "role": "Correspondante éducation"
+      },
+      {
+        "title": "Le mouvement jeunesse du Sénégal redéfinit le débat politique",
+        "excerpt": "De jeunes activistes impulsent des conversations sur la gouvernance, la responsabilité et l'avenir de la démocratie via l'organisation locale et les plateformes numériques.",
+        "journalist": "Ibrahim Diallo",
+        "role": "Reporter société"
+      },
+      {
+        "title": "L'accord commercial de la CEDEAO ouvre de nouveaux marchés aux PME",
+        "excerpt": "L'intégration régionale crée des opportunités pour les petites entreprises de s'étendre au-delà des frontières, avec une hausse des volumes d'exportation.",
+        "journalist": "Fatou Sow",
+        "role": "Analyste économie"
+      },
+      {
+        "title": "L'essor du front de mer au Cap redessine les priorités locales",
+        "excerpt": "Logement, tourisme et inégalités : les habitants se demandent si la croissance profite à tous ou exclut les plus fragiles.",
+        "journalist": "Amahle Ndlovu",
+        "role": "Reporter affaires urbaines"
+      },
+      {
+        "title": "Dans les nouvelles routes de l'or en Afrique de l'Ouest",
+        "excerpt": "Sur le terrain, des journalistes suivent l'impact de l'orpaillage, de la régulation et de la demande mondiale sur les campagnes.",
+        "journalist": "Kwame Mensah",
+        "role": "Correspondant économie"
+      },
+      {
+        "title": "Pourquoi l'okapi remet la conservation au centre du débat",
+        "excerpt": "Une espèce rare devient le symbole des enjeux de sécurité, de revenus et de financement climatique dans l'est de la RDC.",
+        "journalist": "Clarisse Mbayo",
+        "role": "Reporter environnement"
+      }
+    ]
+  },
   "heroPosts": {
   "empower": {
     "title": "Informer et inspirer les communautés",

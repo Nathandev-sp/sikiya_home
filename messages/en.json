@@ -46,6 +46,62 @@
       }
     ]
   },
+  "popularStories": {
+    "ariaLabel": "Popular stories on Sikiya",
+    "title": "Popular on Sikiya",
+    "subtitle": "Discover the most-read stories shaping Africa's conversations.",
+    "viewsCount": "{count} views",
+    "minRead": "{minutes} min read",
+    "like": "Like story",
+    "share": "Share story",
+    "previous": "Previous stories",
+    "next": "Next stories",
+    "categories": {
+      "education": "Education",
+      "society": "Society",
+      "economy": "Economy",
+      "politics": "Politics",
+      "environment": "Environment"
+    },
+    "stories": [
+      {
+        "title": "Education Reform Transforming Ghana's School System",
+        "excerpt": "New policies are expanding access to quality education across rural communities, with early results showing improved literacy rates and teacher retention.",
+        "journalist": "Ama Osei",
+        "role": "Education Correspondent"
+      },
+      {
+        "title": "Senegal's Youth Movement Reshaping Political Discourse",
+        "excerpt": "Young activists are driving conversations on governance, accountability, and the future of democracy through grassroots organizing and digital platforms.",
+        "journalist": "Ibrahim Diallo",
+        "role": "Society Reporter"
+      },
+      {
+        "title": "ECOWAS Trade Agreement Opens New Markets for SMEs",
+        "excerpt": "Regional integration is creating opportunities for small businesses to expand across borders, with entrepreneurs reporting increased export volumes.",
+        "journalist": "Fatou Sow",
+        "role": "Economy Analyst"
+      },
+      {
+        "title": "Cape Town's Waterfront Boom Reshapes Local Priorities",
+        "excerpt": "From housing pressure to tourism rebounds, residents debate whether growth is lifting communities or pricing them out of the city they built.",
+        "journalist": "Amahle Ndlovu",
+        "role": "Urban Affairs Reporter"
+      },
+      {
+        "title": "Inside West Africa's New Gold Corridors",
+        "excerpt": "Journalists on the ground trace how artisanal mining, regulation, and global demand are colliding in rural economies across the region.",
+        "journalist": "Kwame Mensah",
+        "role": "Business Correspondent"
+      },
+      {
+        "title": "Why Conservationists Are Rallying Around the Okapi Again",
+        "excerpt": "A rare forest species becomes a flashpoint for security, livelihoods, and climate funding in communities across eastern DRC.",
+        "journalist": "Clarisse Mbayo",
+        "role": "Environment Reporter"
+      }
+    ]
+  },
   "heroPosts": {
   "empower": {
     "title": "Empower Communities with Knowledge",
