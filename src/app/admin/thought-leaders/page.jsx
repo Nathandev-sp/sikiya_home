@@ -45,6 +45,8 @@ export default function ThoughtLeadersPage() {
   const [rejectSubmitting, setRejectSubmitting] = useState(false);
   const [removeModal, setRemoveModal] = useState({ open: false, userId: null, name: '' });
   const [removeSubmitting, setRemoveSubmitting] = useState(false);
+  const [clearModal, setClearModal] = useState({ open: false, userId: null, name: '' });
+  const [clearSubmitting, setClearSubmitting] = useState(false);
 
   useEffect(() => {
     checkAdminAccess();
@@ -238,6 +240,55 @@ export default function ThoughtLeadersPage() {
       alert(`Error: ${err.message}`);
     } finally {
       setRemoveSubmitting(false);
+    }
+  };
+
+  const openClearModal = (userId, firstname, lastname) => {
+    setClearModal({
+      open: true,
+      userId,
+      name: `${firstname || ''} ${lastname || ''}`.trim() || 'this applicant',
+    });
+  };
+
+  const closeClearModal = () => {
+    if (clearSubmitting) return;
+    setClearModal({ open: false, userId: null, name: '' });
+  };
+
+  const submitClearApplication = async () => {
+    setClearSubmitting(true);
+    try {
+      const token = localStorage.getItem('token') || sessionStorage.getItem('token');
+      const response = await fetch(
+        `${API_URL}/admin/thoughtleaders/${clearModal.userId}/application`,
+        {
+          method: 'DELETE',
+          headers: {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json',
+          },
+        }
+      );
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || 'Failed to delete application');
+      }
+
+      setThoughtLeaders((prev) => prev.filter((t) => t._id !== clearModal.userId));
+      setVerifiedIds((prev) => {
+        const next = { ...prev };
+        delete next[clearModal.userId];
+        return next;
+      });
+      setClearModal({ open: false, userId: null, name: '' });
+      alert('Application deleted. This user can submit a new application.');
+    } catch (err) {
+      console.error('Error deleting thought leader application:', err);
+      alert(`Error: ${err.message}`);
+    } finally {
+      setClearSubmitting(false);
     }
   };
 
@@ -446,6 +497,12 @@ export default function ThoughtLeadersPage() {
           </svg>
         </button>
         <button
+          onClick={() => openClearModal(tl._id, tl.firstname, tl.lastname)}
+          className="px-4 py-2 text-sm font-medium rounded-lg border border-gray-300 text-gray-700 bg-white hover:bg-gray-50 transition-colors"
+        >
+          Delete
+        </button>
+        <button
           onClick={() => openRejectModal(tl._id, tl.firstname, tl.lastname)}
           className="px-4 py-2 text-sm font-medium rounded-lg border border-red-300 text-red-700 bg-white hover:bg-red-50 transition-colors"
         >
@@ -490,6 +547,33 @@ export default function ThoughtLeadersPage() {
         className="px-4 py-2 text-sm font-medium rounded-lg border border-amber-300 text-amber-800 bg-amber-50 hover:bg-amber-100 transition-colors"
       >
         Remove
+      </button>
+    </div>
+  );
+
+  const renderRejectedActions = (tl) => (
+    <div className="flex items-center space-x-2">
+      <button
+        onClick={() => setExpandedId(expandedId === tl._id ? null : tl._id)}
+        className="p-2 text-slate-400 hover:text-[#66462C] transition-colors"
+        aria-label="Toggle details"
+      >
+        <svg
+          className={`w-6 h-6 transform transition-transform ${
+            expandedId === tl._id ? 'rotate-180' : ''
+          }`}
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+        </svg>
+      </button>
+      <button
+        onClick={() => openClearModal(tl._id, tl.firstname, tl.lastname)}
+        className="px-4 py-2 text-sm font-medium rounded-lg border border-gray-300 text-gray-700 bg-white hover:bg-gray-50 transition-colors"
+      >
+        Delete
       </button>
     </div>
   );
@@ -561,24 +645,7 @@ export default function ThoughtLeadersPage() {
                     {renderApplicantHeader(tl)}
                     {activeTab === 'pending' ? renderActionBar(tl) : null}
                     {activeTab === 'approved' ? renderApprovedActions(tl) : null}
-                    {activeTab === 'rejected' ? (
-                      <button
-                        onClick={() => setExpandedId(isExpanded ? null : tl._id)}
-                        className="p-2 text-slate-400 hover:text-[#66462C] transition-colors"
-                        aria-label="Toggle details"
-                      >
-                        <svg
-                          className={`w-6 h-6 transform transition-transform ${
-                            isExpanded ? 'rotate-180' : ''
-                          }`}
-                          fill="none"
-                          stroke="currentColor"
-                          viewBox="0 0 24 24"
-                        >
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                        </svg>
-                      </button>
-                    ) : null}
+                    {activeTab === 'rejected' ? renderRejectedActions(tl) : null}
                   </div>
 
                   {isExpanded && (
@@ -690,6 +757,40 @@ export default function ThoughtLeadersPage() {
                 }`}
               >
                 {rejectSubmitting ? 'Rejecting...' : 'Confirm Reject'}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Clear application modal (pending / rejected tabs) */}
+      {clearModal.open && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-gray-900/50">
+          <div className="bg-white rounded-lg shadow-xl max-w-lg w-full">
+            <div className="p-6 border-b border-gray-200">
+              <h3 className="text-lg font-semibold text-gray-900">Delete application</h3>
+              <p className="text-sm text-gray-500 mt-1">
+                This removes the thought leader application for{' '}
+                <span className="font-medium">{clearModal.name}</span>. They will be able to
+                submit a new application from the app.
+              </p>
+            </div>
+            <div className="px-6 py-4 bg-gray-50 border-t border-gray-200 rounded-b-lg flex justify-end gap-3">
+              <button
+                onClick={closeClearModal}
+                disabled={clearSubmitting}
+                className="px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50 disabled:opacity-50"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={submitClearApplication}
+                disabled={clearSubmitting}
+                className={`px-4 py-2 text-sm font-medium rounded-md text-white transition-colors ${
+                  clearSubmitting ? 'bg-gray-400 cursor-not-allowed' : 'bg-gray-800 hover:bg-gray-900'
+                }`}
+              >
+                {clearSubmitting ? 'Deleting...' : 'Confirm Delete'}
               </button>
             </div>
           </div>

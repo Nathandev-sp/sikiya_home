@@ -305,6 +305,49 @@
         { "city": "Addis-Abeba", "country": "Éthiopie" },
         { "city": "Kigali", "country": "Rwanda" }
       ]
+    },
+    "faq": {
+      "title": "Foire aux questions",
+      "subtitle": "Tout ce que vous devez savoir sur Sikiya",
+      "stillHaveQuestions": "Vous avez encore des questions ?",
+      "reachOut": "contactez-nous :",
+      "supportEmail": "nathan.cibonga@sikiya.org",
+      "items": [
+        {
+          "question": "L'application ne fonctionne pas. Que dois-je faire ?",
+          "answer": "Si vous rencontrez des problèmes avec l'application, veuillez contacter notre équipe d'assistance à nathan.cibonga@sikiya.org en indiquant votre type d'appareil, des captures d'écran si possible, et une brève description du problème."
+        },
+        {
+          "question": "Qu'est-ce que Sikiya ?",
+          "answer": "Sikiya est une plateforme africaine d'actualités et de discussions axée sur un journalisme de confiance, des reportages locaux et des conversations constructives qui aident les communautés à rester informées sur le continent."
+        },
+        {
+          "question": "Que reçoivent les Leaders d'opinion ?",
+          "answer": "Les Leaders d'opinion reçoivent un badge vérifié, une visibilité accrue sur la plateforme, des commentaires illimités, moins de publicités et l'accès à de futures fonctionnalités communautaires et de la plateforme."
+        },
+        {
+          "question": "Les contributeurs sont-ils rémunérés sur Sikiya ?",
+          "answer": "Les contributeurs ne reçoivent actuellement pas de paiement direct sur Sikiya. La plateforme se concentre sur la construction d'un écosystème journalistique de confiance et le soutien au reportage communautaire."
+        },
+        {
+          "question": "Sikiya est-il gratuit ?",
+          "answer": "Oui. Sikiya offre une vaste bibliothèque gratuite d'actualités, de discussions et de contenu communautaire, permettant à la plupart des utilisateurs d'accéder à la plateforme et de l'utiliser librement."
+        },
+        {
+          "question": "Comment Sikiya lutte-t-il contre la désinformation ?",
+          "answer": "Sikiya s'appuie sur des éditeurs pour recouper les contenus d'actualité et maintient un système de score de confiance des journalistes qui encourage la responsabilité et le reportage rigoureux. La rémunération et la visibilité des journalistes sont influencées par leur score de confiance, récompensant un journalisme précis et crédible au fil du temps."
+        }
+      ]
+    },
+    "privacyPolicy": {
+      "title": "Politique de confidentialité",
+      "paragraphs": [
+        "Sikiya accorde une grande importance à votre vie privée et s'engage à protéger vos informations personnelles. La plateforme peut collecter des informations de compte de base, des données d'utilisation et du contenu généré par les utilisateurs afin d'améliorer les services, de maintenir la sécurité de la plateforme et de soutenir les fonctionnalités communautaires.",
+        "En utilisant Sikiya, les utilisateurs reconnaissent que le contenu partagé sur la plateforme peut être modéré, examiné ou supprimé afin de respecter les normes communautaires et l'intégrité de la plateforme.",
+        "Sikiya peut utiliser des analyses, des cookies et des technologies connexes pour améliorer l'expérience utilisateur et les performances de la plateforme. Les informations des utilisateurs ne sont pas vendues à des tiers."
+      ],
+      "contactLabel": "Pour toute question concernant la confidentialité ou la protection des données, veuillez contacter :",
+      "contactEmail": "nathan.cibonga@sikiya.org"
     }
   },
   "footer": {

@@ -304,6 +304,49 @@
         { "city": "Addis Ababa", "country": "Ethiopia" },
         { "city": "Kigali", "country": "Rwanda" }
       ]
+    },
+    "faq": {
+      "title": "Frequently Asked Questions",
+      "subtitle": "Everything you need to know about Sikiya",
+      "stillHaveQuestions": "Still have questions?",
+      "reachOut": "reach out to:",
+      "supportEmail": "nathan.cibonga@sikiya.org",
+      "items": [
+        {
+          "question": "The app is not working. What should I do?",
+          "answer": "If you are experiencing issues with the app, please contact our support team at nathan.cibonga@sikiya.org with your device type, screenshots if possible, and a short explanation of the issue."
+        },
+        {
+          "question": "What is Sikiya?",
+          "answer": "Sikiya is an African news and discussion platform focused on trusted journalism, local reporting, and meaningful conversations that help communities stay informed across the continent."
+        },
+        {
+          "question": "What do Thought Leaders receive?",
+          "answer": "Thought Leaders receive a verified badge, increased visibility on the platform, unlimited comments, reduced advertisements, and access to future community and platform features."
+        },
+        {
+          "question": "Do contributors get paid on Sikiya?",
+          "answer": "Contributors currently do not receive direct payment on Sikiya. The platform is focused on building a trusted journalism ecosystem and supporting community-driven reporting."
+        },
+        {
+          "question": "Is Sikiya free to use?",
+          "answer": "Yes. Sikiya offers an extensive free library of news, discussions, and community content, allowing most users to access and use the platform freely."
+        },
+        {
+          "question": "How does Sikiya fight misinformation?",
+          "answer": "Sikiya uses publishers to crosscheck news content and maintains a journalist trust score system that encourages accountability and responsible reporting. Journalist compensation and visibility are influenced by their trust score, rewarding accurate and credible journalism over time."
+        }
+      ]
+    },
+    "privacyPolicy": {
+      "title": "Privacy Policy",
+      "paragraphs": [
+        "Sikiya values your privacy and is committed to protecting your personal information. The platform may collect basic account information, usage data, and user-generated content to improve services, maintain platform security, and support community features.",
+        "By using Sikiya, users acknowledge that content shared on the platform may be moderated, reviewed, or removed to maintain community standards and platform integrity.",
+        "Sikiya may use analytics, cookies, and related technologies to improve user experience and platform performance. User information is not sold to third parties."
+      ],
+      "contactLabel": "If you have questions regarding privacy or data protection, please contact:",
+      "contactEmail": "nathan.cibonga@sikiya.org"
     }
   },
   "footer": {

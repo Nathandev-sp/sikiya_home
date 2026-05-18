@@ -1,5 +1,7 @@
 'use client'
 
+import { AboutFaq } from '@/components/AboutFaq'
+import { AboutPrivacyPolicy } from '@/components/AboutPrivacyPolicy'
 import { Container } from '@/components/Container'
 import { useLanguage } from '@/lib/LanguageContext'
 import { getTranslation } from '@/lib/translations'
@@ -118,6 +120,9 @@ export function AboutSections() {
           </div>
         </Container>
       </section>
+
+      <AboutFaq />
+      <AboutPrivacyPolicy />
     </>
   )
 }

@@ -16,15 +16,15 @@
       "static/chunks/main-app.js",
       "static/chunks/app/page.js"
     ],
-    "/explore/page": [
+    "/learn_more/layout": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/explore/page.js"
+      "static/chunks/app/learn_more/layout.js"
     ],
-    "/app-launch/page": [
+    "/learn_more/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/app-launch/page.js"
+      "static/chunks/app/learn_more/page.js"
     ]
   }
 }
